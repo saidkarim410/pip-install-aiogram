@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:furnace_engine"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BBB",
+      "BFB",
+      "BSB"
+    ],
+    "key": {
+      "B": {
+        "item": "mech:brass_sheet"
+      },
+      "F": {
+        "item": "minecraft:furnace"
+      },
+      "S": {
+        "item": "mech:shaft"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:brass_sheet"
+      }
+    ],
+    "result": {
+      "item": "mech:furnace_engine",
+      "count": 1
+    }
+  }
+}

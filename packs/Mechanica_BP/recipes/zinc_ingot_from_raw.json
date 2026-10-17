@@ -1,0 +1,19 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_furnace": {
+    "description": {
+      "identifier": "mech:zinc_ingot_from_raw"
+    },
+    "tags": [
+      "furnace",
+      "blast_furnace"
+    ],
+    "unlock": [
+      {
+        "item": "mech:raw_zinc"
+      }
+    ],
+    "input": "mech:raw_zinc",
+    "output": "mech:zinc_ingot"
+  }
+}

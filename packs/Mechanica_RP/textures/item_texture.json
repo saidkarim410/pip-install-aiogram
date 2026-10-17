@@ -1,0 +1,60 @@
+{
+  "resource_pack_name": "mechanica",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "mech_raw_zinc": {
+      "textures": "textures/items/mech_raw_zinc"
+    },
+    "mech_zinc_ingot": {
+      "textures": "textures/items/mech_zinc_ingot"
+    },
+    "mech_brass_ingot": {
+      "textures": "textures/items/mech_brass_ingot"
+    },
+    "mech_andesite_alloy": {
+      "textures": "textures/items/mech_andesite_alloy"
+    },
+    "mech_crushed_iron": {
+      "textures": "textures/items/mech_crushed_iron"
+    },
+    "mech_iron_sheet": {
+      "textures": "textures/items/mech_iron_sheet"
+    },
+    "mech_crushed_gold": {
+      "textures": "textures/items/mech_crushed_gold"
+    },
+    "mech_gold_sheet": {
+      "textures": "textures/items/mech_gold_sheet"
+    },
+    "mech_crushed_copper": {
+      "textures": "textures/items/mech_crushed_copper"
+    },
+    "mech_copper_sheet": {
+      "textures": "textures/items/mech_copper_sheet"
+    },
+    "mech_crushed_zinc": {
+      "textures": "textures/items/mech_crushed_zinc"
+    },
+    "mech_zinc_sheet": {
+      "textures": "textures/items/mech_zinc_sheet"
+    },
+    "mech_brass_sheet": {
+      "textures": "textures/items/mech_brass_sheet"
+    },
+    "mech_wheat_flour": {
+      "textures": "textures/items/mech_wheat_flour"
+    },
+    "mech_dough": {
+      "textures": "textures/items/mech_dough"
+    },
+    "mech_whisk": {
+      "textures": "textures/items/mech_whisk"
+    },
+    "mech_wrench": {
+      "textures": "textures/items/mech_wrench"
+    },
+    "mech_goggles": {
+      "textures": "textures/items/mech_goggles"
+    }
+  }
+}

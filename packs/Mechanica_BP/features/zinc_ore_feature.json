@@ -1,0 +1,23 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:ore_feature": {
+    "description": {
+      "identifier": "mech:zinc_ore_feature"
+    },
+    "count": 9,
+    "replace_rules": [
+      {
+        "places_block": "mech:zinc_ore",
+        "may_replace": [
+          "minecraft:stone"
+        ]
+      },
+      {
+        "places_block": "mech:deepslate_zinc_ore",
+        "may_replace": [
+          "minecraft:deepslate"
+        ]
+      }
+    ]
+  }
+}

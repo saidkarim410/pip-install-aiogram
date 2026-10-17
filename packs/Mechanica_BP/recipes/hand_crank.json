@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:hand_crank"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PPP",
+      "  S"
+    ],
+    "key": {
+      "P": {
+        "tag": "minecraft:planks"
+      },
+      "S": {
+        "item": "mech:shaft"
+      }
+    },
+    "unlock": [
+      {
+        "tag": "minecraft:planks"
+      }
+    ],
+    "result": {
+      "item": "mech:hand_crank",
+      "count": 1
+    }
+  }
+}

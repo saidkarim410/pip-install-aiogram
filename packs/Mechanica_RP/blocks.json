@@ -1,0 +1,69 @@
+{
+  "format_version": "1.21.10",
+  "mech:zinc_ore": {
+    "sound": "stone"
+  },
+  "mech:deepslate_zinc_ore": {
+    "sound": "deepslate"
+  },
+  "mech:zinc_block": {
+    "sound": "metal"
+  },
+  "mech:brass_block": {
+    "sound": "metal"
+  },
+  "mech:andesite_casing": {
+    "sound": "wood"
+  },
+  "mech:brass_casing": {
+    "sound": "wood"
+  },
+  "mech:shaft": {
+    "sound": "wood"
+  },
+  "mech:cogwheel": {
+    "sound": "wood"
+  },
+  "mech:large_cogwheel": {
+    "sound": "wood"
+  },
+  "mech:water_wheel": {
+    "sound": "wood"
+  },
+  "mech:hand_crank": {
+    "sound": "wood"
+  },
+  "mech:furnace_engine": {
+    "sound": "metal"
+  },
+  "mech:millstone": {
+    "sound": "stone"
+  },
+  "mech:mechanical_press": {
+    "sound": "metal"
+  },
+  "mech:mechanical_mixer": {
+    "sound": "metal"
+  },
+  "mech:mechanical_drill": {
+    "sound": "metal"
+  },
+  "mech:depot": {
+    "sound": "wood"
+  },
+  "mech:basin": {
+    "sound": "wood"
+  },
+  "mech:mine_driller": {
+    "sound": "metal"
+  },
+  "mech:tunnel_borer": {
+    "sound": "metal"
+  },
+  "mech:factory": {
+    "sound": "metal"
+  },
+  "mech:logistics_node": {
+    "sound": "metal"
+  }
+}

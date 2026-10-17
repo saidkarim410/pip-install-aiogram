@@ -1,0 +1,30 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:brass_block"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BBB",
+      "BBB",
+      "BBB"
+    ],
+    "key": {
+      "B": {
+        "item": "mech:brass_ingot"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:brass_ingot"
+      }
+    ],
+    "result": {
+      "item": "mech:brass_block",
+      "count": 1
+    }
+  }
+}

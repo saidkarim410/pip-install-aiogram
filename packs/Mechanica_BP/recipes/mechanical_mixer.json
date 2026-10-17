@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:mechanical_mixer"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "S",
+      "K",
+      "W"
+    ],
+    "key": {
+      "S": {
+        "item": "mech:shaft"
+      },
+      "K": {
+        "item": "mech:andesite_casing"
+      },
+      "W": {
+        "item": "mech:whisk"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:shaft"
+      }
+    ],
+    "result": {
+      "item": "mech:mechanical_mixer",
+      "count": 1
+    }
+  }
+}

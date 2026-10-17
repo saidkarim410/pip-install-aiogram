@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:millstone"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "C",
+      "T"
+    ],
+    "key": {
+      "C": {
+        "item": "mech:cogwheel"
+      },
+      "T": {
+        "item": "minecraft:stone"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:cogwheel"
+      }
+    ],
+    "result": {
+      "item": "mech:millstone",
+      "count": 1
+    }
+  }
+}

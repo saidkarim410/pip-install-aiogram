@@ -1,0 +1,35 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:wrench"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "GC",
+      " S"
+    ],
+    "key": {
+      "G": {
+        "item": "mech:gold_sheet"
+      },
+      "C": {
+        "item": "mech:cogwheel"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:gold_sheet"
+      }
+    ],
+    "result": {
+      "item": "mech:wrench",
+      "count": 1
+    }
+  }
+}

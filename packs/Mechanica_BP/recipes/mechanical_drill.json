@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:mechanical_drill"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " I ",
+      "IKI",
+      " S "
+    ],
+    "key": {
+      "I": {
+        "item": "mech:iron_sheet"
+      },
+      "K": {
+        "item": "mech:andesite_casing"
+      },
+      "S": {
+        "item": "mech:shaft"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:iron_sheet"
+      }
+    ],
+    "result": {
+      "item": "mech:mechanical_drill",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "format_version": "1.21.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "mech:dough",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "mech_dough",
+      "minecraft:max_stack_size": 64
+    }
+  }
+}

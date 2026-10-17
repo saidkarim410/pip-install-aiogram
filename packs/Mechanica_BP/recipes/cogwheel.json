@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "mech:cogwheel"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "mech:shaft"
+      },
+      {
+        "tag": "minecraft:planks"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "mech:shaft"
+      }
+    ],
+    "result": {
+      "item": "mech:cogwheel",
+      "count": 1
+    }
+  }
+}

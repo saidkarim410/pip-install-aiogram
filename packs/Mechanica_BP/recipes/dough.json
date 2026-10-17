@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "mech:dough"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "mech:wheat_flour"
+      },
+      {
+        "item": "minecraft:water_bucket"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "mech:wheat_flour"
+      }
+    ],
+    "result": {
+      "item": "mech:dough",
+      "count": 1
+    }
+  }
+}

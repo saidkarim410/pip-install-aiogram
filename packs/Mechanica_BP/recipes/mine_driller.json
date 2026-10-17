@@ -1,0 +1,39 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:mine_driller"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "IDI",
+      "KCK",
+      "IKI"
+    ],
+    "key": {
+      "I": {
+        "item": "mech:iron_sheet"
+      },
+      "D": {
+        "item": "mech:mechanical_drill"
+      },
+      "K": {
+        "item": "mech:andesite_casing"
+      },
+      "C": {
+        "item": "minecraft:chest"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:iron_sheet"
+      }
+    ],
+    "result": {
+      "item": "mech:mine_driller",
+      "count": 1
+    }
+  }
+}

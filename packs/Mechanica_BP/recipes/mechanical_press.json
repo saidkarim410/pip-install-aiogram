@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:mechanical_press"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "S",
+      "K",
+      "I"
+    ],
+    "key": {
+      "S": {
+        "item": "mech:shaft"
+      },
+      "K": {
+        "item": "mech:andesite_casing"
+      },
+      "I": {
+        "item": "minecraft:iron_block"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:shaft"
+      }
+    ],
+    "result": {
+      "item": "mech:mechanical_press",
+      "count": 1
+    }
+  }
+}

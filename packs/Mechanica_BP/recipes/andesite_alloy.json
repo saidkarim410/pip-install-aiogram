@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:andesite_alloy"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AN",
+      "NA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:andesite"
+      },
+      "N": {
+        "item": "minecraft:iron_nugget"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:andesite"
+      }
+    ],
+    "result": {
+      "item": "mech:andesite_alloy",
+      "count": 2
+    }
+  }
+}

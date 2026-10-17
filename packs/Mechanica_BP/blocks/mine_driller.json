@@ -1,0 +1,90 @@
+{
+  "format_version": "1.21.10",
+  "minecraft:block": {
+    "description": {
+      "identifier": "mech:mine_driller",
+      "menu_category": {
+        "category": "items"
+      },
+      "states": {
+        "mech:spin": [
+          false,
+          true
+        ]
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.mech_machine_box",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "mech_machine",
+          "render_method": "alpha_test",
+          "ambient_occlusion": false,
+          "face_dimming": true
+        },
+        "front": {
+          "texture": "mech_drill_head",
+          "render_method": "alpha_test",
+          "ambient_occlusion": false,
+          "face_dimming": true
+        },
+        "top": {
+          "texture": "mech_machine_dark",
+          "render_method": "alpha_test",
+          "ambient_occlusion": false,
+          "face_dimming": true
+        }
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 3
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 6.0
+      },
+      "minecraft:light_dampening": 15,
+      "minecraft:map_color": "#777777",
+      "minecraft:collision_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
+      },
+      "minecraft:selection_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
+      },
+      "minecraft:custom_components": [
+        "mech:kinetic"
+      ]
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('mech:spin')",
+        "components": {
+          "minecraft:material_instances": {
+            "front": {
+              "texture": "mech_drill_head_spin",
+              "render_method": "alpha_test",
+              "ambient_occlusion": false,
+              "face_dimming": true
+            }
+          }
+        }
+      }
+    ]
+  }
+}

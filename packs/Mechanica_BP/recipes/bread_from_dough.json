@@ -1,0 +1,19 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_furnace": {
+    "description": {
+      "identifier": "mech:bread_from_dough"
+    },
+    "tags": [
+      "furnace",
+      "blast_furnace"
+    ],
+    "unlock": [
+      {
+        "item": "mech:dough"
+      }
+    ],
+    "input": "mech:dough",
+    "output": "minecraft:bread"
+  }
+}

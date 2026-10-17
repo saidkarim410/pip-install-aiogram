@@ -1,0 +1,39 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:factory"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BBB",
+      "KFK",
+      "BCB"
+    ],
+    "key": {
+      "B": {
+        "item": "mech:brass_casing"
+      },
+      "K": {
+        "item": "mech:andesite_casing"
+      },
+      "F": {
+        "item": "minecraft:blast_furnace"
+      },
+      "C": {
+        "item": "minecraft:crafting_table"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:brass_casing"
+      }
+    ],
+    "result": {
+      "item": "mech:factory",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "flipbook_texture": "textures/blocks/mech_shaft_spin",
+    "atlas_tile": "mech_shaft_spin",
+    "ticks_per_frame": 3,
+    "frames": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "flipbook_texture": "textures/blocks/mech_cog_spin",
+    "atlas_tile": "mech_cog_spin",
+    "ticks_per_frame": 3,
+    "frames": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "flipbook_texture": "textures/blocks/mech_cog_large_spin",
+    "atlas_tile": "mech_cog_large_spin",
+    "ticks_per_frame": 3,
+    "frames": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "flipbook_texture": "textures/blocks/mech_wheel_spin",
+    "atlas_tile": "mech_wheel_spin",
+    "ticks_per_frame": 3,
+    "frames": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "flipbook_texture": "textures/blocks/mech_iron_spin",
+    "atlas_tile": "mech_iron_spin",
+    "ticks_per_frame": 3,
+    "frames": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "flipbook_texture": "textures/blocks/mech_drill_head_spin",
+    "atlas_tile": "mech_drill_head_spin",
+    "ticks_per_frame": 3,
+    "frames": [
+      0,
+      1,
+      2,
+      3
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:andesite_alloy_mirror"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "NA",
+      "AN"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:andesite"
+      },
+      "N": {
+        "item": "minecraft:iron_nugget"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:andesite"
+      }
+    ],
+    "result": {
+      "item": "mech:andesite_alloy",
+      "count": 2
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_furnace": {
+    "description": {
+      "identifier": "mech:iron_from_crushed"
+    },
+    "tags": [
+      "furnace",
+      "blast_furnace"
+    ],
+    "unlock": [
+      {
+        "item": "mech:crushed_iron"
+      }
+    ],
+    "input": "mech:crushed_iron",
+    "output": "minecraft:iron_ingot"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "mech:marker",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/mech_marker"
+      },
+      "geometry": {
+        "default": "geometry.mech_marker"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

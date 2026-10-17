@@ -1,0 +1,107 @@
+{
+  "resource_pack_name": "mechanica",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "mech_zinc_ore": {
+      "textures": "textures/blocks/mech_zinc_ore"
+    },
+    "mech_deepslate_zinc_ore": {
+      "textures": "textures/blocks/mech_deepslate_zinc_ore"
+    },
+    "mech_zinc_block": {
+      "textures": "textures/blocks/mech_zinc_block"
+    },
+    "mech_brass_block": {
+      "textures": "textures/blocks/mech_brass_block"
+    },
+    "mech_andesite_casing": {
+      "textures": "textures/blocks/mech_andesite_casing"
+    },
+    "mech_brass_casing": {
+      "textures": "textures/blocks/mech_brass_casing"
+    },
+    "mech_shaft": {
+      "textures": "textures/blocks/mech_shaft"
+    },
+    "mech_shaft_spin": {
+      "textures": "textures/blocks/mech_shaft_spin"
+    },
+    "mech_cog": {
+      "textures": "textures/blocks/mech_cog"
+    },
+    "mech_cog_spin": {
+      "textures": "textures/blocks/mech_cog_spin"
+    },
+    "mech_cog_large": {
+      "textures": "textures/blocks/mech_cog_large"
+    },
+    "mech_cog_large_spin": {
+      "textures": "textures/blocks/mech_cog_large_spin"
+    },
+    "mech_wheel": {
+      "textures": "textures/blocks/mech_wheel"
+    },
+    "mech_wheel_spin": {
+      "textures": "textures/blocks/mech_wheel_spin"
+    },
+    "mech_wheel_hub": {
+      "textures": "textures/blocks/mech_wheel_hub"
+    },
+    "mech_iron": {
+      "textures": "textures/blocks/mech_iron"
+    },
+    "mech_iron_spin": {
+      "textures": "textures/blocks/mech_iron_spin"
+    },
+    "mech_millstone_side": {
+      "textures": "textures/blocks/mech_millstone_side"
+    },
+    "mech_millstone_wheel": {
+      "textures": "textures/blocks/mech_millstone_wheel"
+    },
+    "mech_millstone_top": {
+      "textures": "textures/blocks/mech_millstone_top"
+    },
+    "mech_engine_side": {
+      "textures": "textures/blocks/mech_engine_side"
+    },
+    "mech_engine_front": {
+      "textures": "textures/blocks/mech_engine_front"
+    },
+    "mech_drill_side": {
+      "textures": "textures/blocks/mech_drill_side"
+    },
+    "mech_drill_head": {
+      "textures": "textures/blocks/mech_drill_head"
+    },
+    "mech_drill_head_spin": {
+      "textures": "textures/blocks/mech_drill_head_spin"
+    },
+    "mech_depot_top": {
+      "textures": "textures/blocks/mech_depot_top"
+    },
+    "mech_basin_inner": {
+      "textures": "textures/blocks/mech_basin_inner"
+    },
+    "mech_machine": {
+      "textures": "textures/blocks/mech_machine"
+    },
+    "mech_machine_dark": {
+      "textures": "textures/blocks/mech_machine_dark"
+    },
+    "mech_logistics": {
+      "textures": "textures/blocks/mech_logistics"
+    },
+    "mech_logistics_front": {
+      "textures": "textures/blocks/mech_logistics_front"
+    },
+    "mech_factory": {
+      "textures": "textures/blocks/mech_factory"
+    },
+    "mech_factory_front": {
+      "textures": "textures/blocks/mech_factory_front"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_furnace": {
+    "description": {
+      "identifier": "mech:copper_from_crushed"
+    },
+    "tags": [
+      "furnace",
+      "blast_furnace"
+    ],
+    "unlock": [
+      {
+        "item": "mech:crushed_copper"
+      }
+    ],
+    "input": "mech:crushed_copper",
+    "output": "minecraft:copper_ingot"
+  }
+}

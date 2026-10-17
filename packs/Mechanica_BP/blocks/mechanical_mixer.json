@@ -1,0 +1,102 @@
+{
+  "format_version": "1.21.10",
+  "minecraft:block": {
+    "description": {
+      "identifier": "mech:mechanical_mixer",
+      "menu_category": {
+        "category": "items"
+      },
+      "states": {
+        "mech:spin": [
+          false,
+          true
+        ]
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.mech_mixer",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "mech_andesite_casing",
+          "render_method": "alpha_test",
+          "ambient_occlusion": false,
+          "face_dimming": true
+        },
+        "casing": {
+          "texture": "mech_andesite_casing",
+          "render_method": "alpha_test",
+          "ambient_occlusion": false,
+          "face_dimming": true
+        },
+        "shaft": {
+          "texture": "mech_shaft",
+          "render_method": "alpha_test",
+          "ambient_occlusion": false,
+          "face_dimming": true
+        },
+        "whisk": {
+          "texture": "mech_iron",
+          "render_method": "alpha_test",
+          "ambient_occlusion": false,
+          "face_dimming": true
+        }
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 6.0
+      },
+      "minecraft:light_dampening": 0,
+      "minecraft:map_color": "#777777",
+      "minecraft:collision_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
+      },
+      "minecraft:selection_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          16,
+          16
+        ]
+      },
+      "minecraft:custom_components": [
+        "mech:kinetic"
+      ]
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('mech:spin')",
+        "components": {
+          "minecraft:material_instances": {
+            "whisk": {
+              "texture": "mech_iron_spin",
+              "render_method": "alpha_test",
+              "ambient_occlusion": false,
+              "face_dimming": true
+            },
+            "shaft": {
+              "texture": "mech_shaft_spin",
+              "render_method": "alpha_test",
+              "ambient_occlusion": false,
+              "face_dimming": true
+            }
+          }
+        }
+      }
+    ]
+  }
+}

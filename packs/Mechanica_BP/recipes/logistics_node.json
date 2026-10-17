@@ -1,0 +1,39 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:logistics_node"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ZEZ",
+      "ZKZ",
+      "ZHZ"
+    ],
+    "key": {
+      "Z": {
+        "item": "mech:zinc_ingot"
+      },
+      "E": {
+        "item": "minecraft:ender_pearl"
+      },
+      "K": {
+        "item": "mech:brass_casing"
+      },
+      "H": {
+        "item": "minecraft:hopper"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:zinc_ingot"
+      }
+    ],
+    "result": {
+      "item": "mech:logistics_node",
+      "count": 1
+    }
+  }
+}
