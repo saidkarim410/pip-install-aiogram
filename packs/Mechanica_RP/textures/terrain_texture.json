@@ -61,6 +61,9 @@
     "mech_millstone_wheel": {
       "textures": "textures/blocks/mech_millstone_wheel"
     },
+    "mech_millstone_wheel_spin": {
+      "textures": "textures/blocks/mech_millstone_wheel_spin"
+    },
     "mech_millstone_top": {
       "textures": "textures/blocks/mech_millstone_top"
     },

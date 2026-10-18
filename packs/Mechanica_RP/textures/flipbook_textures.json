@@ -55,6 +55,17 @@
     ]
   },
   {
+    "flipbook_texture": "textures/blocks/mech_millstone_wheel_spin",
+    "atlas_tile": "mech_millstone_wheel_spin",
+    "ticks_per_frame": 3,
+    "frames": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  {
     "flipbook_texture": "textures/blocks/mech_drill_head_spin",
     "atlas_tile": "mech_drill_head_spin",
     "ticks_per_frame": 3,

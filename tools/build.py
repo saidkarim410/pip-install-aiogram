@@ -77,9 +77,9 @@ COL = {
     "iron": (216, 216, 216),
     "gold": (250, 220, 80),
     "copper": (200, 120, 85),
-    "wood": (110, 100, 85),
+    "wood": (122, 108, 86),
     "planks": (162, 125, 72),
-    "gear": (125, 118, 100),
+    "gear": (132, 124, 104),
     "dark": (70, 70, 75),
 }
 
@@ -93,11 +93,10 @@ def btex(name, img):
     save_png(img, f"textures/blocks/{NS}_{name}.png")
 
 
-def bspin(name, base_img, frames=4):
-    spin = T.spin_frames(base_img, frames)
+def bspin(name, frames_img, frames=4):
     atlas = f"{NS}_{name}_spin"
     BLOCK_TEX[atlas] = f"textures/blocks/{atlas}"
-    save_png(spin, f"textures/blocks/{atlas}.png")
+    save_png(frames_img, f"textures/blocks/{atlas}.png")
     FLIPBOOKS.append((atlas, f"textures/blocks/{atlas}", frames))
 
 
@@ -108,93 +107,80 @@ def itex(name, img):
 
 def gen_textures():
     stone = T.stone()
-    deep = T.stone((82, 82, 88), 10)
+    deep = T.stone((84, 84, 92), streaks=True)
     btex("zinc_ore", T.ore(stone, COL["zinc"]))
     btex("deepslate_zinc_ore", T.ore(deep, COL["zinc"]))
     btex("zinc_block", T.metal_block(COL["zinc"]))
     btex("brass_block", T.metal_block(COL["brass"]))
-    btex("andesite_casing", T.casing((150, 120, 70), COL["andesite"]))
-    btex("brass_casing", T.casing(COL["brass"], (120, 100, 60)))
-    shaft = T.shaft_tex(COL["wood"])
-    btex("shaft", shaft)
-    bspin("shaft", shaft)
-    gear = T.noise_fill(T.new(), COL["gear"], 8)
-    btex("cog", gear)
-    bspin("cog", gear)
-    big = T.noise_fill(T.new(), (105, 98, 80), 8)
+    btex("andesite_casing", T.casing((150, 118, 68), COL["andesite"]))
+    btex("brass_casing", T.casing(COL["brass"], (118, 98, 62)))
+    # shafts & cogs
+    btex("shaft", T.cylinder(COL["wood"]))
+    bspin("shaft", T.stack([T.cylinder(COL["wood"], offset=i * 4) for i in range(4)]))
+    cog = T.casing((105, 98, 82), COL["gear"])
+    btex("cog", cog)
+    bspin("cog", T.sheen_frames(cog))
+    big = T.casing((92, 86, 72), (108, 100, 84))
     btex("cog_large", big)
-    bspin("cog_large", big)
-    paddle = T.planks()
-    btex("wheel", paddle)
-    bspin("wheel", paddle)
-    btex("wheel_hub", T.noise_fill(T.new(), (120, 90, 55), 10))
+    bspin("cog_large", T.sheen_frames(big))
+    btex("wheel", T.planks())
+    bspin("wheel", T.stack([T.planks(shift=i * 4) for i in range(4)]))
+    btex("wheel_hub", T.cylinder((125, 92, 56)))
     iron = T.metal_block(COL["iron"])
     btex("iron", iron)
-    bspin("iron", iron)
+    bspin("iron", T.sheen_frames(iron))
     # millstone
-    btex("millstone_side", T.stone((150, 150, 150), 10))
-    btex("millstone_wheel", T.gear_face((150, 150, 150), teeth=12, r_out=7.9, r_in=7.0, hole=2.0))
-    btex("millstone_top", T.stone((110, 110, 110), 10))
+    btex("millstone_side", T.stone((150, 150, 150)))
+    wheel = T.rings((128, 128, 128))
+    btex("millstone_wheel", wheel)
+    bspin("millstone_wheel", T.stack([T.gear_face((135, 135, 135), teeth=12, r_out=7.9, r_in=7.0, hole=2.0, angle=i * 7.5) for i in range(4)]))
+    btex("millstone_top", T.stone((112, 112, 112)))
     # engine
-    eng = T.casing(COL["brass"], (90, 80, 70))
+    eng = T.casing(COL["brass"], (95, 85, 72))
     btex("engine_side", eng)
-    front = eng.copy()
-    d = T.ImageDraw.Draw(front)
-    d.rectangle([4, 4, 11, 11], fill=(255, 120, 30, 255))
-    d.rectangle([6, 6, 9, 9], fill=(255, 220, 90, 255))
-    btex("engine_front", front)
+    btex("engine_front", T.fire_window(eng))
     # drill
-    drill = T.metal_block((150, 150, 155))
-    btex("drill_side", drill)
-    head = T.gear_face((170, 170, 175), teeth=6, r_out=7.9, r_in=6.0, hole=1.0)
-    btex("drill_head", head)
-    bspin("drill_head", head)
+    btex("drill_side", T.panel((150, 150, 155), vents=False))
+    btex("drill_head", T.gear_face((175, 175, 180), teeth=6, r_out=7.9, r_in=6.0, hole=1.0))
+    bspin("drill_head", T.stack([T.gear_face((175, 175, 180), teeth=6, r_out=7.9, r_in=6.0, hole=1.0, angle=i * 15) for i in range(4)]))
     # depot / basin
-    depot_top = T.casing((150, 120, 70), (60, 60, 65))
-    btex("depot_top", depot_top)
-    btex("basin_inner", T.noise_fill(T.new(), (55, 55, 60), 6))
+    depot = T.casing((150, 118, 68), (62, 62, 68))
+    btex("depot_top", depot)
+    btex("basin_inner", T.panel((58, 58, 64), frame=(90, 90, 96), vents=False))
     # automation
-    machine = T.casing((95, 95, 100), (140, 142, 145))
-    btex("machine", machine)
-    btex("machine_dark", T.casing((60, 60, 65), (100, 100, 105)))
-    logi = T.casing(COL["brass"], (80, 110, 150))
+    btex("machine", T.panel((140, 142, 146), stripe=COL["brass"]))
+    btex("machine_dark", T.panel((104, 106, 110), vents=False))
+    logi = T.panel((82, 112, 156), frame=COL["brass"], vents=False)
     btex("logistics", logi)
-    arrow = logi.copy()
-    d = T.ImageDraw.Draw(arrow)
-    d.polygon([(4, 11), (8, 4), (12, 11)], fill=(240, 240, 240, 255))
-    btex("logistics_front", arrow)
-    fac = T.casing(COL["brass"], (120, 70, 60))
+    btex("logistics_front", T.arrow_panel(logi))
+    fac = T.panel((128, 72, 62), frame=COL["brass"])
     btex("factory", fac)
-    facf = fac.copy()
-    d = T.ImageDraw.Draw(facf)
-    d.rectangle([3, 3, 12, 12], fill=(40, 40, 45, 255))
-    d.rectangle([5, 5, 10, 10], fill=(255, 150, 40, 255))
-    btex("factory_front", facf)
+    btex("factory_front", T.fire_window(T.panel((128, 72, 62), frame=COL["brass"], vents=False)))
     # items
-    itex("raw_zinc", T.lumps(COL["zinc"], 4, 2, 3, dark_patches=4))
+    itex("raw_zinc", T.raw_lump(COL["zinc"]))
     itex("zinc_ingot", T.ingot(COL["zinc"]))
     itex("brass_ingot", T.ingot(COL["brass"]))
     itex("andesite_alloy", T.ingot(COL["andesite"]))
     for m in ("iron", "gold", "copper", "zinc"):
-        itex(f"crushed_{m}", T.lumps(COL[m], 6, 1, 2))
+        itex(f"crushed_{m}", T.crushed(COL[m]))
         itex(f"{m}_sheet", T.sheet(COL[m]))
     itex("brass_sheet", T.sheet(COL["brass"]))
-    itex("wheat_flour", T.pile((235, 230, 215)))
-    itex("dough", T.lumps((225, 205, 160), 3, 3, 4, outline=-40))
+    itex("wheat_flour", T.pile((238, 232, 216)))
+    itex("dough", T.dough())
     itex("whisk", T.whisk())
-    itex("wrench", T.tool_wrench())
+    itex("wrench", T.wrench())
     itex("goggles", T.goggles())
     save_png(T.pack_icon(), "pack_icon.png", RP)
-    save_png(T.pack_icon(bg=(48, 36, 30)), "pack_icon.png", BP)
+    save_png(T.pack_icon(bg=(52, 38, 32)), "pack_icon.png", BP)
     # entities
     save_png(T.Image.new("RGBA", (8, 8), (0, 0, 0, 0)), "textures/entity/mech_marker.png")
     for ci, cc in enumerate(CLAN_COLORS):
-        for ri, rc in enumerate(ROLE_COLORS):
-            save_png(T.humanoid_skin(cc, rc), f"textures/entity/colonist/c{ci}_r{ri}.png")
+        for ri, role in enumerate(ROLES):
+            save_png(T.humanoid_skin(cc, role), f"textures/entity/colonist/c{ci}_r{ri}.png")
 
 
+ROLES = ["builder", "gatherer", "farmer", "warrior"]
 CLAN_COLORS = [(200, 50, 50), (50, 90, 210), (50, 160, 60), (230, 200, 50), (150, 60, 190), (235, 130, 40), (40, 180, 190), (235, 235, 235)]
-ROLE_COLORS = [(230, 190, 40), (120, 85, 50), (70, 150, 60), (130, 135, 145)]  # builder, gatherer, farmer, warrior
 
 # --------------------------------------------------------------------------------------
 # geometry
@@ -559,7 +545,6 @@ def gen_recipes():
 # entities (colonists + markers)
 # --------------------------------------------------------------------------------------
 
-ROLES = ["builder", "gatherer", "farmer", "warrior"]
 SLOTS = 8
 
 
