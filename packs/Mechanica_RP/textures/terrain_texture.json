@@ -105,6 +105,18 @@
     },
     "mech_factory_front": {
       "textures": "textures/blocks/mech_factory_front"
+    },
+    "mech_belt_top": {
+      "textures": "textures/blocks/mech_belt_top"
+    },
+    "mech_belt_top_spin": {
+      "textures": "textures/blocks/mech_belt_top_spin"
+    },
+    "mech_belt_side": {
+      "textures": "textures/blocks/mech_belt_side"
+    },
+    "mech_funnel": {
+      "textures": "textures/blocks/mech_funnel"
     }
   }
 }

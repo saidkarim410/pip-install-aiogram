@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:mechanical_belt"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "LLL",
+      "AAA"
+    ],
+    "key": {
+      "L": {
+        "item": "minecraft:leather"
+      },
+      "A": {
+        "item": "mech:andesite_alloy"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:leather"
+      }
+    ],
+    "result": {
+      "item": "mech:mechanical_belt",
+      "count": 6
+    }
+  }
+}

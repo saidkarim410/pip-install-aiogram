@@ -8,6 +8,7 @@ import {
 export const EVAL_EVERY = 10; // ticks between network evaluations
 export const DEFS = {};
 export const netInfo = new Map(); // `${dimId}|${x,y,z}` -> { speed, stress, capacity, over, sources }
+export const beltNodes = new Map(); // dimId -> Map<key, { pos, facing, speed }> (refreshed on every evaluation)
 const memState = new Map(); // non-persistent per-block state (progress counters, timers)
 
 export function defineKinetic(id, def) {
@@ -140,6 +141,13 @@ export function evaluate() {
           if (m && m.cog && m.axis === n.axis) n.edges.push({ to: m, ratio: -(n.cog / m.cog) });
         }
       }
+      if (n.def.chain) {
+        // belts: consecutive segments with the same direction form one drive line
+        for (const f of n.def.chain(n.perm)) {
+          const m = nodes.get(key(add(n.pos, DIR[f])));
+          if (m && m.block.typeId === n.block.typeId && facingOf(m.perm) === facingOf(n.perm)) n.edges.push({ to: m, ratio: 1 });
+        }
+      }
     }
     // components
     let compId = 0;
@@ -199,7 +207,10 @@ export function evaluate() {
       }
     }
     // apply
+    const belts = new Map();
+    beltNodes.set(dimId, belts);
     for (const n of nodes.values()) {
+      if (n.def.belt) belts.set(n.k, { pos: n.pos, facing: facingOf(n.perm), speed: n.speed });
       if (!n.def.passive) {
         const spin = n.speed !== 0;
         try {

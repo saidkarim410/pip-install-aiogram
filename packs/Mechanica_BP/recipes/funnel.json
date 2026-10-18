@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mech:funnel"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "A",
+      "H"
+    ],
+    "key": {
+      "A": {
+        "item": "mech:andesite_alloy"
+      },
+      "H": {
+        "item": "minecraft:hopper"
+      }
+    },
+    "unlock": [
+      {
+        "item": "mech:andesite_alloy"
+      }
+    ],
+    "result": {
+      "item": "mech:funnel",
+      "count": 2
+    }
+  }
+}

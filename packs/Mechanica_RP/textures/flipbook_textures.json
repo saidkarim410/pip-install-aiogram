@@ -75,5 +75,15 @@
       2,
       3
     ]
+  },
+  {
+    "flipbook_texture": "textures/blocks/mech_belt_top_spin",
+    "atlas_tile": "mech_belt_top_spin",
+    "ticks_per_frame": 3,
+    "frames": [
+      0,
+      1,
+      2
+    ]
   }
 ]

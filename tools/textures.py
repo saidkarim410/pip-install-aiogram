@@ -320,6 +320,46 @@ def arrow_panel(panel_img, color=(240, 240, 240)):
     return img
 
 
+def belt_top(shift=0, rnd=RND):
+    """Dark rubber belt with light chevrons pointing north (up in the texture); shift moves them."""
+    base = (52, 52, 58)
+    r = ramp(base)
+    img = fill(new(), base)
+    noise(img, 3, rnd)
+    for x in (0, 15):
+        vline(img, x, 0, 15, (120, 98, 60))
+    for x in (1, 14):
+        vline(img, x, 0, 15, r[1])
+    for k in range(-2, 5):
+        cy = (k * 6 + shift) % 18 - 2
+        for i in range(5):
+            y = cy + i
+            if 0 <= y < 16:
+                put(img, 7 - i, y, r[4] if i < 2 else r[3])
+                put(img, 8 + i, y, r[4] if i < 2 else r[3])
+    return img
+
+
+def belt_side(rnd=RND):
+    r = ramp((150, 118, 68))
+    img = fill(new(), (150, 118, 68))
+    noise(img, 4, rnd)
+    rect(img, 0, 0, 15, 3, (52, 52, 58))
+    hline(img, 0, 15, 4, r[1])
+    hline(img, 0, 15, 15, r[0])
+    for cx in (3, 12):
+        ImageDraw.Draw(img).ellipse([cx - 2, 7, cx + 2, 11], fill=rgba((120, 112, 96)))
+        put(img, cx, 9, (70, 66, 58))
+    return img
+
+
+def funnel_tex(rnd=RND):
+    img = casing((150, 118, 68), (132, 135, 140), rnd)
+    rect(img, 4, 4, 11, 11, (40, 40, 46))
+    bevel(img, 4, 4, 11, 11, ramp((90, 90, 96)), 1)
+    return img
+
+
 # ----------------------------------------------------------------------------- spin frames
 
 def stack(frames):

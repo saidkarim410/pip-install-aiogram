@@ -63,6 +63,12 @@
   "mech:factory": {
     "sound": "metal"
   },
+  "mech:mechanical_belt": {
+    "sound": "wood"
+  },
+  "mech:funnel": {
+    "sound": "wood"
+  },
   "mech:logistics_node": {
     "sound": "metal"
   }

@@ -156,6 +156,11 @@ def gen_textures():
     fac = T.panel((128, 72, 62), frame=COL["brass"])
     btex("factory", fac)
     btex("factory_front", T.fire_window(T.panel((128, 72, 62), frame=COL["brass"], vents=False)))
+    # belts & funnels
+    btex("belt_top", T.belt_top())
+    bspin("belt_top", T.stack([T.belt_top(shift=-i * 2) for i in range(3)]), 3)
+    btex("belt_side", T.belt_side())
+    btex("funnel", T.funnel_tex())
     # items
     itex("raw_zinc", T.raw_lump(COL["zinc"]))
     itex("zinc_ingot", T.ingot(COL["zinc"]))
@@ -250,6 +255,10 @@ def gen_geometry():
              cube([-6, 2, -8], [12, 11, 2], "side"), cube([-6, 2, 6], [12, 11, 2], "side")]
     geo("basin", basin)
     geo("machine_box", [cube([-8, 0, -8], [16, 16, 16], "side", faces={"north": "front", "up": "top"})])
+    geo("belt", [cube([-8, 0, -8], [16, 4, 16], "side", faces={"up": "top"})], (1, 1))
+    funnel = [cube([-8, 0, -8], [16, 2, 16], "side"), cube([-8, 2, -8], [2, 8, 16], "side"), cube([6, 2, -8], [2, 8, 16], "side"), cube([-6, 2, 6], [12, 8, 2], "side"),
+              cube([-6, 2, -8], [12, 1, 2], "side")]
+    geo("funnel", funnel)
     for name, g in GEOS.items():
         write_json(os.path.join(RP, "models", "blocks", f"{NS}_{name}.geo.json"), g)
     # entities
@@ -404,6 +413,10 @@ def gen_blocks():
           traits=TRAIT_FACING, perms=FACING_PERMS, hardness=3, custom=[f"{NS}:kinetic"], kinetic=True, sound="metal")
     block("factory", "Processing Factory", "Перерабатывающий завод", geometry="machine_box", materials={"*": "factory", "front": "factory_front", "top": "brass_casing"}, spin={"top": "iron_spin"}, category="items",
           traits=TRAIT_FACING, perms=FACING_PERMS, hardness=3, custom=[f"{NS}:kinetic"], kinetic=True, sound="metal")
+    block("mechanical_belt", "Mechanical Belt", "Механическая лента", geometry="belt", materials={"*": "belt_side", "top": "belt_top"}, spin={"top": "belt_top_spin"}, category="items",
+          traits=TRAIT_FACING, perms=FACING_PERMS, collision={"origin": [-8, 0, -8], "size": [16, 4, 16]}, hardness=0.8, resistance=2, light_damp=0, custom=K, kinetic=True, sound="wood")
+    block("funnel", "Funnel", "Воронка", geometry="funnel", materials={"*": "funnel"}, category="items", traits=TRAIT_FACING, perms=FACING_PERMS,
+          collision={"origin": [-8, 0, -8], "size": [16, 2, 16]}, selection=FULL, hardness=1, resistance=2, light_damp=0, custom=K, sound="wood")
     block("logistics_node", "Logistics Node", "Логистический узел", geometry="machine_box", materials={"*": "logistics", "front": "logistics_front", "top": "logistics"}, category="items",
           traits=TRAIT_FACING, perms=FACING_PERMS, hardness=2, custom=[f"{NS}:kinetic"], sound="metal")
     # ore loot tables
@@ -538,6 +551,8 @@ def gen_recipes():
     shaped("mine_driller", ["IDI", "KCK", "IKI"], {"I": f"{NS}:iron_sheet", "D": f"{NS}:mechanical_drill", "K": f"{NS}:andesite_casing", "C": "minecraft:chest"}, f"{NS}:mine_driller")
     shaped("tunnel_borer", ["IKI", "DCD", "IKI"], {"I": f"{NS}:iron_sheet", "D": f"{NS}:mechanical_drill", "K": f"{NS}:andesite_casing", "C": "minecraft:chest"}, f"{NS}:tunnel_borer")
     shaped("factory", ["BBB", "KFK", "BCB"], {"B": f"{NS}:brass_casing", "K": f"{NS}:andesite_casing", "F": "minecraft:blast_furnace", "C": "minecraft:crafting_table"}, f"{NS}:factory")
+    shaped("mechanical_belt", ["LLL", "AAA"], {"L": "minecraft:leather", "A": A}, f"{NS}:mechanical_belt", 6)
+    shaped("funnel", ["A", "H"], {"A": A, "H": "minecraft:hopper"}, f"{NS}:funnel", 2)
     shaped("logistics_node", ["ZEZ", "ZKZ", "ZHZ"], {"Z": f"{NS}:zinc_ingot", "E": "minecraft:ender_pearl", "K": f"{NS}:brass_casing", "H": "minecraft:hopper"}, f"{NS}:logistics_node")
 
 
@@ -777,6 +792,10 @@ MESSAGES = {
     "mech.msg.link_done": ("§aLogistics node linked to %s, %s, %s", "§aЛогистический узел связан с %s, %s, %s"),
     "mech.msg.link_none": ("§7Logistics node is not linked. Click it with a wrench, then click a container", "§7Узел не связан. Нажмите ключом по узлу, затем по контейнеру"),
     "mech.msg.link_info": ("§bLogistics node → %s, %s, %s §7| moved: %s", "§bЛогистический узел → %s, %s, %s §7| перемещено: %s"),
+    "mech.msg.funnel_mode": ("§aFunnel mode: %s", "§aРежим воронки: %s"),
+    "mech.msg.funnel_info": ("§eFunnel: %s §7| moved: %s", "§eВоронка: %s §7| перемещено: %s"),
+    "mech.mode.funnel_in": ("loading into the container", "загрузка в контейнер"),
+    "mech.mode.funnel_out": ("unloading from the container", "выгрузка из контейнера"),
     "mech.msg.link_far": ("§cToo far (max %s blocks)", "§cСлишком далеко (макс. %s блоков)"),
     "mech.msg.need_container": ("§cPlace a chest or barrel next to the machine for output", "§cПоставьте рядом с машиной сундук или бочку для выгрузки"),
     "mech.civ.founded": ("§6[Colonists] §eA new settlement was founded: §f%s", "§6[Поселенцы] §eОсновано новое поселение: §f%s"),

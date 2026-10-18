@@ -4,6 +4,7 @@ import { NS, provideBlockPermutation } from "./common.js";
 import { kineticComponent, startKinetics } from "./kinetics.js";
 import { handleLinkClick } from "./automation.js";
 import { startCiv } from "./civ.js";
+import { startConveyors } from "./conveyor.js";
 
 provideBlockPermutation(BlockPermutation);
 
@@ -22,5 +23,6 @@ try {
 }
 
 startKinetics();
+startConveyors();
 startCiv();
 console.warn("[mech] Mechanica loaded");
