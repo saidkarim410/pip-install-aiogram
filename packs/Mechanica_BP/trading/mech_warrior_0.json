@@ -1,0 +1,64 @@
+{
+  "tiers": [
+    {
+      "groups": [
+        {
+          "num_to_select": 6,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:iron_ingot",
+                  "quantity": 4
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:arrow",
+                  "quantity": 8
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:stone_sword",
+                  "quantity": 1
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

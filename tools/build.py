@@ -179,7 +179,7 @@ def gen_textures():
             save_png(T.humanoid_skin(cc, role), f"textures/entity/colonist/c{ci}_r{ri}.png")
 
 
-ROLES = ["builder", "gatherer", "farmer", "warrior"]
+ROLES = ["builder", "gatherer", "farmer", "warrior", "trader"]
 CLAN_COLORS = [(200, 50, 50), (50, 90, 210), (50, 160, 60), (230, 200, 50), (150, 60, 190), (235, 130, 40), (40, 180, 190), (235, 235, 235)]
 
 # --------------------------------------------------------------------------------------
@@ -598,6 +598,7 @@ def gen_entities():
         f"{NS}:gatherer": {"minecraft:mark_variant": {"value": 1}},
         f"{NS}:builder": {"minecraft:mark_variant": {"value": 0}},
         f"{NS}:farmer": {"minecraft:mark_variant": {"value": 2}},
+        f"{NS}:trader": {"minecraft:mark_variant": {"value": 4}},
     }
     # equipment and health per role and era (civilizations evolve)
     GEAR = {
@@ -608,6 +609,41 @@ def gen_entities():
                     ["minecraft:diamond_sword", "minecraft:iron_helmet", "minecraft:iron_chestplate", "minecraft:iron_leggings"]],
     }
     WARRIOR_HP = [24, 30, 36, 44]
+    GEAR["trader"] = [["minecraft:emerald"], ["minecraft:emerald"], ["minecraft:emerald"], ["minecraft:emerald"]]
+    E = "minecraft:emerald"
+
+    def trade(wants, gives, uses=12):
+        return {"wants": [{"item": i, "quantity": q} for i, q in wants], "gives": [{"item": i, "quantity": q} for i, q in gives], "max_uses": uses, "reward_exp": False, "trader_exp": 1}
+
+    def trades_for(role, era):
+        T = []
+        if role == "builder":
+            T += [trade([("minecraft:oak_log", 8)], [(E, 1)]), trade([(E, 1)], [("minecraft:cobblestone", 16)]), trade([(E, 1)], [("minecraft:oak_planks", 12)])]
+            if era >= 1: T += [trade([(E, 1)], [("minecraft:glass", 6)]), trade([(E, 1)], [("minecraft:stone_bricks", 10)])]
+            if era >= 2: T += [trade([(E, 1)], [("minecraft:lantern", 2)]), trade([(E, 2)], [("minecraft:bookshelf", 1)])]
+            if era >= 3: T += [trade([(E, 2)], [("minecraft:brick_block", 8)]), trade([(E, 3)], [("minecraft:copper_block", 1)])]
+        elif role == "gatherer":
+            T += [trade([("minecraft:cobblestone", 24)], [(E, 1)]), trade([(E, 1)], [("minecraft:coal", 6)]), trade([(E, 1)], [("minecraft:raw_iron", 3)])]
+            if era >= 1: T += [trade([(E, 1)], [("minecraft:raw_copper", 4)]), trade([(E, 1)], [(f"{NS}:raw_zinc", 3)])]
+            if era >= 2: T += [trade([(E, 2)], [("minecraft:raw_gold", 1)]), trade([(E, 1)], [("minecraft:lapis_lazuli", 4)])]
+            if era >= 3: T += [trade([(E, 8)], [("minecraft:diamond", 1)]), trade([(E, 2)], [("minecraft:iron_ingot", 3)])]
+        elif role == "farmer":
+            T += [trade([("minecraft:wheat", 12)], [(E, 1)]), trade([(E, 1)], [("minecraft:bread", 4)]), trade([(E, 1)], [("minecraft:wheat_seeds", 8)])]
+            if era >= 1: T += [trade([(E, 1)], [("minecraft:hay_block", 2)]), trade([(E, 1)], [("minecraft:carrot", 6)])]
+            if era >= 2: T += [trade([(E, 1)], [("minecraft:cookie", 8)]), trade([(E, 3)], [("minecraft:cake", 1)])]
+            if era >= 3: T += [trade([(E, 1)], [(f"{NS}:wheat_flour", 6)]), trade([(E, 2)], [("minecraft:golden_carrot", 2)])]
+        elif role == "warrior":
+            T += [trade([("minecraft:iron_ingot", 4)], [(E, 1)]), trade([(E, 1)], [("minecraft:arrow", 8)]), trade([(E, 1)], [("minecraft:stone_sword", 1)])]
+            if era >= 1: T += [trade([(E, 4)], [("minecraft:iron_sword", 1)], 4), trade([(E, 3)], [("minecraft:shield", 1)], 4)]
+            if era >= 2: T += [trade([(E, 5)], [("minecraft:iron_helmet", 1)], 3), trade([(E, 7)], [("minecraft:iron_chestplate", 1)], 3)]
+            if era >= 3: T += [trade([(E, 12)], [("minecraft:diamond_sword", 1)], 2), trade([(E, 9)], [("minecraft:bow", 1)], 3)]
+        else:  # trader: mechanical goods, emeralds for raw materials
+            T += [trade([("minecraft:oak_log", 16)], [(E, 2)]), trade([("minecraft:raw_iron", 6)], [(E, 2)]), trade([(E, 2)], [(f"{NS}:andesite_alloy", 4)]),
+                  trade([(E, 1)], [(f"{NS}:zinc_ingot", 2)]), trade([(E, 3)], [(f"{NS}:brass_ingot", 2)]), trade([(E, 2)], [(f"{NS}:shaft", 4)]),
+                  trade([(E, 2)], [(f"{NS}:cogwheel", 2)]), trade([(E, 2)], [(f"{NS}:iron_sheet", 2)])]
+            if era >= 3: T += [trade([(E, 8)], [(f"{NS}:wrench", 1)], 2), trade([(E, 10)], [(f"{NS}:goggles", 1)], 2), trade([(E, 6)], [(f"{NS}:mechanical_drill", 1)], 2)]
+        return T
+
     gear_groups = []
     for role, eras in GEAR.items():
         for era, items in enumerate(eras):
@@ -615,14 +651,17 @@ def gen_entities():
             gear_groups.append(gname)
             table = f"loot_tables/entities/mech_gear_{role}_{era}.json"
             write_json(os.path.join(BP, table), {"pools": [{"rolls": 1, "entries": [{"type": "item", "name": it, "weight": 1}]} for it in items]})
-            groups[gname] = {"minecraft:equipment": {"table": table}}
+            tt = f"trading/mech_{role}_{era}.json"
+            write_json(os.path.join(BP, tt), {"tiers": [{"groups": [{"num_to_select": 6, "trades": trades_for(role, era)}]}]})
+            groups[gname] = {"minecraft:equipment": {"table": table}, "minecraft:economy_trade_table": {"display_name": f"mech.trade.{role}", "table": tt, "new_screen": True, "persist_trades": True, "convert_trades_economy": False}}
             if role == "warrior":
                 groups[gname]["minecraft:health"] = {"value": WARRIOR_HP[era], "max": WARRIOR_HP[era]}
     events = {
-        f"{NS}:become_warrior": {"remove": {"component_groups": [f"{NS}:worker", f"{NS}:gatherer", f"{NS}:builder", f"{NS}:farmer"]}, "add": {"component_groups": [f"{NS}:warrior"]}},
-        f"{NS}:become_builder": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:gatherer", f"{NS}:farmer"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:builder"]}},
-        f"{NS}:become_gatherer": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:builder", f"{NS}:farmer"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:gatherer"]}},
-        f"{NS}:become_farmer": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:builder", f"{NS}:gatherer"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:farmer"]}},
+        f"{NS}:become_warrior": {"remove": {"component_groups": [f"{NS}:worker", f"{NS}:gatherer", f"{NS}:builder", f"{NS}:farmer", f"{NS}:trader"]}, "add": {"component_groups": [f"{NS}:warrior"]}},
+        f"{NS}:become_builder": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:gatherer", f"{NS}:farmer", f"{NS}:trader"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:builder"]}},
+        f"{NS}:become_gatherer": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:builder", f"{NS}:farmer", f"{NS}:trader"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:gatherer"]}},
+        f"{NS}:become_farmer": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:builder", f"{NS}:gatherer", f"{NS}:trader"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:farmer"]}},
+        f"{NS}:become_trader": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:builder", f"{NS}:gatherer", f"{NS}:farmer"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:trader"]}},
     }
     for g in gear_groups:
         events[g] = {"remove": {"component_groups": [o for o in gear_groups if o != g]}, "add": {"component_groups": [g]}}
@@ -651,6 +690,8 @@ def gen_entities():
                 "minecraft:mark_variant": {"value": 1},
                 "minecraft:loot": {"table": "loot_tables/entities/mech_colonist.json"},
                 "minecraft:behavior.float": {"priority": 0},
+                "minecraft:behavior.trade_with_player": {"priority": 1},
+                "minecraft:behavior.trade_interest": {"priority": 2, "within_radius": 6, "interest_time": 45, "remove_item_time": 1, "carried_item_switch_time": 2, "cooldown": 2},
                 "minecraft:behavior.nearest_attackable_target": {"priority": 3, "must_see": False, "reselect_targets": True, "scan_interval": 10, "within_radius": 64, "entity_types": targets},
                 "minecraft:behavior.move_towards_target": {"priority": 4, "speed_multiplier": 1.0, "within_radius": 64},
                 "minecraft:behavior.open_door": {"priority": 5},
@@ -754,6 +795,12 @@ MESSAGES = {
     "mech.role.gatherer": ("Gatherer", "Добытчик"),
     "mech.role.farmer": ("Farmer", "Фермер"),
     "mech.role.warrior": ("Warrior", "Воин"),
+    "mech.role.trader": ("Trader", "Торговец"),
+    "mech.trade.builder": ("Builder", "Строитель"),
+    "mech.trade.gatherer": ("Gatherer", "Добытчик"),
+    "mech.trade.farmer": ("Farmer", "Фермер"),
+    "mech.trade.warrior": ("Warrior", "Воин"),
+    "mech.trade.trader": ("Trader", "Торговец"),
     "mech.bld.town_hall": ("Town Hall", "Ратуша"),
     "mech.bld.house": ("House", "Дом"),
     "mech.bld.farm": ("Farm", "Ферма"),

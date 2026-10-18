@@ -1,0 +1,64 @@
+{
+  "tiers": [
+    {
+      "groups": [
+        {
+          "num_to_select": 6,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:cobblestone",
+                  "quantity": 24
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:coal",
+                  "quantity": 6
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:raw_iron",
+                  "quantity": 3
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

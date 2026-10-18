@@ -9,8 +9,8 @@ import { GEN } from "./generated.js";
 
 const PROP = `${NS}:civ`;
 const SLOTS = GEN.slots;
-const ROLES = ["builder", "gatherer", "farmer", "warrior"];
-const ROLE_RU = { builder: "Строитель", gatherer: "Добытчик", farmer: "Фермер", warrior: "Воин" };
+const ROLES = ["builder", "gatherer", "farmer", "warrior", "trader"];
+const ROLE_RU = { builder: "Строитель", gatherer: "Добытчик", farmer: "Фермер", warrior: "Воин", trader: "Торговец" };
 const BLD_RU = { town_hall: "Ратуша", house: "Дом", farm: "Ферма", tower: "Сторожевая башня", well: "Колодец", storage: "Склад", wall: "Стена", smithy: "Кузница", market: "Рынок", barracks: "Казармы", library: "Библиотека", workshop: "Мастерская", road: "Дорога" };
 const ERA_REQ = [null, { pop: 6, buildings: ["town_hall", "farm", "house", "well"], houses: 2, dev: 20 }, { pop: 12, buildings: ["smithy", "tower"], houses: 4, dev: 60 }, { pop: 20, buildings: ["market", "barracks", "library"], houses: 6, dev: 130 }];
 const MAX_HOUSES = [3, 6, 10, 14];
@@ -169,13 +169,14 @@ function applyRole(e, S, role) {
     e.nameTag = `${ROLE_RU[role]} · ${S.name}`;
   } catch {}
 }
-function desiredRoles(pop) {
-  const d = { builder: 0, gatherer: 0, farmer: 0, warrior: 0 };
+function desiredRoles(pop, S) {
+  const d = { builder: 0, gatherer: 0, farmer: 0, warrior: 0, trader: 0 };
   if (pop <= 0) return d;
   d.warrior = pop >= 3 ? Math.max(1, Math.floor(pop / 4)) : 0;
   d.builder = pop >= 2 ? Math.max(1, Math.floor(pop / 4)) : 0;
   d.farmer = pop >= 4 ? Math.max(1, Math.floor(pop / 6)) : 0;
-  d.gatherer = Math.max(0, pop - d.warrior - d.builder - d.farmer);
+  d.trader = S && pop >= 8 && S.buildings.some((b) => b.type === "market") ? (pop >= 20 ? 2 : 1) : 0;
+  d.gatherer = Math.max(0, pop - d.warrior - d.builder - d.farmer - d.trader);
   if (d.gatherer === 0 && pop >= 1) {
     if (d.builder > 1) d.builder--;
     else if (d.warrior > 1) d.warrior--;
@@ -194,9 +195,9 @@ function assignColonist(e) {
   if (!S) S = nearestSettlement(dim.id, pos, Infinity);
   if (!S) return null;
   const counts = roleCounts(S);
-  const want = desiredRoles((S.pop || 0) + 1);
+  const want = desiredRoles((S.pop || 0) + 1, S);
   let role = "gatherer";
-  for (const r of ["gatherer", "builder", "warrior", "farmer"]) {
+  for (const r of ["gatherer", "builder", "warrior", "farmer", "trader"]) {
     if ((counts[r] || 0) < want[r]) {
       role = r;
       break;
@@ -211,12 +212,12 @@ function assignColonist(e) {
 }
 const liveCounts = new Map(); // settlement id -> role counts (updated every tick)
 function roleCounts(S) {
-  return liveCounts.get(S.id) || { builder: 0, gatherer: 0, farmer: 0, warrior: 0 };
+  return liveCounts.get(S.id) || { builder: 0, gatherer: 0, farmer: 0, warrior: 0, trader: 0 };
 }
 function rebalance(S, members) {
   if (now() - S.lastBalance < 600) return;
   S.lastBalance = now();
-  const want = desiredRoles(members.length);
+  const want = desiredRoles(members.length, S);
   const have = roleCounts(S);
   let swaps = 0;
   for (const r of ROLES) {
@@ -663,6 +664,13 @@ function farmJob(S, dim, members, marker) {
   dirty = true;
 }
 
+// ---------------------------------------------------------------- traders: stand at the market stalls
+function traderJob(S, dim, members, marker) {
+  const market = S.buildings.find((b) => b.type === "market");
+  const loc = market ? { x: market.x + 3.5, y: market.y + 1, z: market.z + 3.5 } : { x: S.center.x + 0.5, y: S.center.y, z: S.center.z + 0.5 };
+  moveMarker(marker, loc);
+}
+
 // ---------------------------------------------------------------- warriors, war and diplomacy
 function warriorJob(S, dim, members, marker) {
   const enemyId = Object.keys(S.wars)[0];
@@ -826,10 +834,10 @@ function growth(S, dim, members) {
     return;
   }
   S.res.food -= 10;
-  const want = desiredRoles(members.length + 1);
+  const want = desiredRoles(members.length + 1, S);
   const have = roleCounts(S);
   let role = "gatherer";
-  for (const r of ["gatherer", "builder", "warrior", "farmer"]) {
+  for (const r of ["gatherer", "builder", "warrior", "farmer", "trader"]) {
     if ((have[r] || 0) < want[r]) {
       role = r;
       break;
@@ -877,7 +885,7 @@ export function civTick() {
   liveCounts.clear();
   for (const S of settlements()) {
     const members = byClan.get(S.id) || [];
-    const counts = { builder: 0, gatherer: 0, farmer: 0, warrior: 0 };
+    const counts = { builder: 0, gatherer: 0, farmer: 0, warrior: 0, trader: 0 };
     for (const m of members) counts[m.role] = (counts[m.role] || 0) + 1;
     liveCounts.set(S.id, counts);
     S.warriors = counts.warrior;
@@ -901,6 +909,7 @@ export function civTick() {
       gatherJob(S, dim, by("gatherer"), markers.gatherer);
       farmJob(S, dim, by("farmer"), markers.farmer);
       warriorJob(S, dim, by("warrior"), markers.warrior);
+      traderJob(S, dim, by("trader"), markers.trader);
       if (tickNo % 5 === 0) growth(S, dim, members);
       if (tickNo % 15 === 7) eraProgress(S, members);
     } catch (e) {
@@ -938,7 +947,12 @@ export function startCiv() {
   }, 20);
   try {
     world.afterEvents.playerInteractWithEntity.subscribe((ev) => {
-      if (ev.target?.typeId === `${NS}:colonist`) describeColonist(ev.player, ev.target);
+      if (ev.target?.typeId !== `${NS}:colonist`) return;
+      let sneaking = false;
+      try {
+        sneaking = !!ev.player.isSneaking;
+      } catch {}
+      if (sneaking) describeColonist(ev.player, ev.target);
     });
   } catch {}
 }

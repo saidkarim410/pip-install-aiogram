@@ -1,0 +1,166 @@
+{
+  "tiers": [
+    {
+      "groups": [
+        {
+          "num_to_select": 6,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:cobblestone",
+                  "quantity": 24
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:coal",
+                  "quantity": 6
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:raw_iron",
+                  "quantity": 3
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:raw_copper",
+                  "quantity": 4
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mech:raw_zinc",
+                  "quantity": 3
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:raw_gold",
+                  "quantity": 1
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:lapis_lazuli",
+                  "quantity": 4
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 8
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:diamond",
+                  "quantity": 1
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:iron_ingot",
+                  "quantity": 3
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

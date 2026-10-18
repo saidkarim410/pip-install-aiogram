@@ -45,69 +45,165 @@
           "value": 2
         }
       },
+      "mech:trader": {
+        "minecraft:mark_variant": {
+          "value": 4
+        }
+      },
       "mech:gear_builder_0": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_builder_0.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.builder",
+          "table": "trading/mech_builder_0.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_builder_1": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_builder_1.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.builder",
+          "table": "trading/mech_builder_1.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_builder_2": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_builder_2.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.builder",
+          "table": "trading/mech_builder_2.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_builder_3": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_builder_3.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.builder",
+          "table": "trading/mech_builder_3.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_gatherer_0": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_gatherer_0.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.gatherer",
+          "table": "trading/mech_gatherer_0.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_gatherer_1": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_gatherer_1.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.gatherer",
+          "table": "trading/mech_gatherer_1.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_gatherer_2": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_gatherer_2.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.gatherer",
+          "table": "trading/mech_gatherer_2.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_gatherer_3": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_gatherer_3.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.gatherer",
+          "table": "trading/mech_gatherer_3.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_farmer_0": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_farmer_0.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.farmer",
+          "table": "trading/mech_farmer_0.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_farmer_1": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_farmer_1.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.farmer",
+          "table": "trading/mech_farmer_1.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_farmer_2": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_farmer_2.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.farmer",
+          "table": "trading/mech_farmer_2.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_farmer_3": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_farmer_3.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.farmer",
+          "table": "trading/mech_farmer_3.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:gear_warrior_0": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_warrior_0.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.warrior",
+          "table": "trading/mech_warrior_0.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         },
         "minecraft:health": {
           "value": 24,
@@ -118,6 +214,13 @@
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_warrior_1.json"
         },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.warrior",
+          "table": "trading/mech_warrior_1.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
+        },
         "minecraft:health": {
           "value": 30,
           "max": 30
@@ -126,6 +229,13 @@
       "mech:gear_warrior_2": {
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_warrior_2.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.warrior",
+          "table": "trading/mech_warrior_2.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         },
         "minecraft:health": {
           "value": 36,
@@ -136,9 +246,64 @@
         "minecraft:equipment": {
           "table": "loot_tables/entities/mech_gear_warrior_3.json"
         },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.warrior",
+          "table": "trading/mech_warrior_3.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
+        },
         "minecraft:health": {
           "value": 44,
           "max": 44
+        }
+      },
+      "mech:gear_trader_0": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_trader_0.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.trader",
+          "table": "trading/mech_trader_0.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
+        }
+      },
+      "mech:gear_trader_1": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_trader_1.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.trader",
+          "table": "trading/mech_trader_1.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
+        }
+      },
+      "mech:gear_trader_2": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_trader_2.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.trader",
+          "table": "trading/mech_trader_2.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
+        }
+      },
+      "mech:gear_trader_3": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_trader_3.json"
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "mech.trade.trader",
+          "table": "trading/mech_trader_3.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "convert_trades_economy": false
         }
       },
       "mech:clan0": {
@@ -233,6 +398,17 @@
       "minecraft:behavior.float": {
         "priority": 0
       },
+      "minecraft:behavior.trade_with_player": {
+        "priority": 1
+      },
+      "minecraft:behavior.trade_interest": {
+        "priority": 2,
+        "within_radius": 6,
+        "interest_time": 45,
+        "remove_item_time": 1,
+        "carried_item_switch_time": 2,
+        "cooldown": 2
+      },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 3,
         "must_see": false,
@@ -326,6 +502,29 @@
                   "test": "has_tag",
                   "subject": "other",
                   "value": "mech_site_0_warrior"
+                }
+              ]
+            },
+            "max_dist": 64,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_c0"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_role_trader"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "mech_site_0_trader"
                 }
               ]
             },
@@ -458,6 +657,29 @@
                 {
                   "test": "has_tag",
                   "subject": "self",
+                  "value": "mech_role_trader"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "mech_site_1_trader"
+                }
+              ]
+            },
+            "max_dist": 64,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_c1"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
                   "value": "mech_role_warrior"
                 },
                 {
@@ -556,6 +778,29 @@
                   "test": "has_tag",
                   "subject": "other",
                   "value": "mech_site_2_warrior"
+                }
+              ]
+            },
+            "max_dist": 64,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_c2"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_role_trader"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "mech_site_2_trader"
                 }
               ]
             },
@@ -688,6 +933,29 @@
                 {
                   "test": "has_tag",
                   "subject": "self",
+                  "value": "mech_role_trader"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "mech_site_3_trader"
+                }
+              ]
+            },
+            "max_dist": 64,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_c3"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
                   "value": "mech_role_warrior"
                 },
                 {
@@ -786,6 +1054,29 @@
                   "test": "has_tag",
                   "subject": "other",
                   "value": "mech_site_4_warrior"
+                }
+              ]
+            },
+            "max_dist": 64,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_c4"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_role_trader"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "mech_site_4_trader"
                 }
               ]
             },
@@ -918,6 +1209,29 @@
                 {
                   "test": "has_tag",
                   "subject": "self",
+                  "value": "mech_role_trader"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "mech_site_5_trader"
+                }
+              ]
+            },
+            "max_dist": 64,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_c5"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
                   "value": "mech_role_warrior"
                 },
                 {
@@ -1016,6 +1330,29 @@
                   "test": "has_tag",
                   "subject": "other",
                   "value": "mech_site_6_warrior"
+                }
+              ]
+            },
+            "max_dist": 64,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_c6"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_role_trader"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "mech_site_6_trader"
                 }
               ]
             },
@@ -1148,6 +1485,29 @@
                 {
                   "test": "has_tag",
                   "subject": "self",
+                  "value": "mech_role_trader"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "mech_site_7_trader"
+                }
+              ]
+            },
+            "max_dist": 64,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "mech_c7"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
                   "value": "mech_role_warrior"
                 },
                 {
@@ -1207,7 +1567,8 @@
             "mech:worker",
             "mech:gatherer",
             "mech:builder",
-            "mech:farmer"
+            "mech:farmer",
+            "mech:trader"
           ]
         },
         "add": {
@@ -1221,7 +1582,8 @@
           "component_groups": [
             "mech:warrior",
             "mech:gatherer",
-            "mech:farmer"
+            "mech:farmer",
+            "mech:trader"
           ]
         },
         "add": {
@@ -1236,7 +1598,8 @@
           "component_groups": [
             "mech:warrior",
             "mech:builder",
-            "mech:farmer"
+            "mech:farmer",
+            "mech:trader"
           ]
         },
         "add": {
@@ -1251,13 +1614,30 @@
           "component_groups": [
             "mech:warrior",
             "mech:builder",
-            "mech:gatherer"
+            "mech:gatherer",
+            "mech:trader"
           ]
         },
         "add": {
           "component_groups": [
             "mech:worker",
             "mech:farmer"
+          ]
+        }
+      },
+      "mech:become_trader": {
+        "remove": {
+          "component_groups": [
+            "mech:warrior",
+            "mech:builder",
+            "mech:gatherer",
+            "mech:farmer"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:worker",
+            "mech:trader"
           ]
         }
       },
@@ -1278,7 +1658,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1304,7 +1688,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1330,7 +1718,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1356,7 +1748,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1382,7 +1778,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1408,7 +1808,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1434,7 +1838,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1460,7 +1868,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1486,7 +1898,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1512,7 +1928,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1538,7 +1958,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1564,7 +1988,11 @@
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1590,7 +2018,11 @@
             "mech:gear_farmer_3",
             "mech:gear_warrior_1",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1616,7 +2048,11 @@
             "mech:gear_farmer_3",
             "mech:gear_warrior_0",
             "mech:gear_warrior_2",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1642,7 +2078,11 @@
             "mech:gear_farmer_3",
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
-            "mech:gear_warrior_3"
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
@@ -1668,12 +2108,136 @@
             "mech:gear_farmer_3",
             "mech:gear_warrior_0",
             "mech:gear_warrior_1",
-            "mech:gear_warrior_2"
+            "mech:gear_warrior_2",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
           ]
         },
         "add": {
           "component_groups": [
             "mech:gear_warrior_3"
+          ]
+        }
+      },
+      "mech:gear_trader_0": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_trader_0"
+          ]
+        }
+      },
+      "mech:gear_trader_1": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_2",
+            "mech:gear_trader_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_trader_1"
+          ]
+        }
+      },
+      "mech:gear_trader_2": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_trader_2"
+          ]
+        }
+      },
+      "mech:gear_trader_3": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3",
+            "mech:gear_trader_0",
+            "mech:gear_trader_1",
+            "mech:gear_trader_2"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_trader_3"
           ]
         }
       },

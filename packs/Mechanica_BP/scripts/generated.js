@@ -19,6 +19,7 @@ export const GEN = {
     "builder",
     "gatherer",
     "farmer",
-    "warrior"
+    "warrior",
+    "trader"
   ]
 };

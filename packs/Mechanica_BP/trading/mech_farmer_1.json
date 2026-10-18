@@ -1,0 +1,98 @@
+{
+  "tiers": [
+    {
+      "groups": [
+        {
+          "num_to_select": 6,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:wheat",
+                  "quantity": 12
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:bread",
+                  "quantity": 4
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:wheat_seeds",
+                  "quantity": 8
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:hay_block",
+                  "quantity": 2
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:carrot",
+                  "quantity": 6
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "tiers": [
+    {
+      "groups": [
+        {
+          "num_to_select": 6,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:oak_log",
+                  "quantity": 8
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:cobblestone",
+                  "quantity": 16
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:oak_planks",
+                  "quantity": 12
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:glass",
+                  "quantity": 6
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            },
+            {
+              "wants": [
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:stone_bricks",
+                  "quantity": 10
+                }
+              ],
+              "max_uses": 12,
+              "reward_exp": false,
+              "trader_exp": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

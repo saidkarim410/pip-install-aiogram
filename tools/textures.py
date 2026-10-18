@@ -547,7 +547,7 @@ def humanoid_skin(clan_color, role, skin=(228, 180, 140), rnd=RND):
     put(img, 9, 13, shade(skin, -10))
     put(img, 14, 13, shade(skin, -10))
     # hat layer per role
-    hat_colors = {"builder": (238, 196, 40), "gatherer": (125, 88, 50), "farmer": (210, 175, 95), "warrior": (150, 155, 165)}
+    hat_colors = {"builder": (238, 196, 40), "gatherer": (125, 88, 50), "farmer": (210, 175, 95), "warrior": (150, 155, 165), "trader": (150, 70, 190)}
     hr = ramp(hat_colors[role])
     if role == "builder":  # hard hat: top + upper half of sides, brim in front
         box(32, 0, 8, 8, 8, hr[3], hr[2], hr[1])
@@ -566,6 +566,13 @@ def humanoid_skin(clan_color, role, skin=(228, 180, 140), rnd=RND):
         hline(img, 32, 63, 10, hr[1])
         hline(img, 32, 63, 9, (120, 60, 40))  # ribbon
         d.rectangle([40, 11, 47, 15], fill=T)
+    elif role == "trader":  # turban with a brass pin
+        box(32, 0, 8, 8, 8, hr[3], hr[2], hr[1])
+        d.rectangle([32, 12, 63, 15], fill=T)
+        hline(img, 32, 63, 10, hr[1])
+        hline(img, 32, 63, 9, hr[3])
+        put(img, 43, 9, (230, 190, 70))
+        put(img, 44, 9, (230, 190, 70))
     else:  # warrior: iron helmet with nose guard
         box(32, 0, 8, 8, 8, hr[3], hr[2], hr[1])
         d.rectangle([32, 12, 63, 15], fill=T)

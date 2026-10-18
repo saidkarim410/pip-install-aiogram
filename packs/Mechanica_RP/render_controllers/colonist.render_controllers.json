@@ -9,34 +9,42 @@
             "Texture.c0_r1",
             "Texture.c0_r2",
             "Texture.c0_r3",
+            "Texture.c0_r4",
             "Texture.c1_r0",
             "Texture.c1_r1",
             "Texture.c1_r2",
             "Texture.c1_r3",
+            "Texture.c1_r4",
             "Texture.c2_r0",
             "Texture.c2_r1",
             "Texture.c2_r2",
             "Texture.c2_r3",
+            "Texture.c2_r4",
             "Texture.c3_r0",
             "Texture.c3_r1",
             "Texture.c3_r2",
             "Texture.c3_r3",
+            "Texture.c3_r4",
             "Texture.c4_r0",
             "Texture.c4_r1",
             "Texture.c4_r2",
             "Texture.c4_r3",
+            "Texture.c4_r4",
             "Texture.c5_r0",
             "Texture.c5_r1",
             "Texture.c5_r2",
             "Texture.c5_r3",
+            "Texture.c5_r4",
             "Texture.c6_r0",
             "Texture.c6_r1",
             "Texture.c6_r2",
             "Texture.c6_r3",
+            "Texture.c6_r4",
             "Texture.c7_r0",
             "Texture.c7_r1",
             "Texture.c7_r2",
-            "Texture.c7_r3"
+            "Texture.c7_r3",
+            "Texture.c7_r4"
           ]
         }
       },
@@ -47,7 +55,7 @@
         }
       ],
       "textures": [
-        "Array.skins[math.clamp(query.variant, 0, 7) * 4 + math.clamp(query.mark_variant, 0, 3)]"
+        "Array.skins[math.clamp(query.variant, 0, 7) * 5 + math.clamp(query.mark_variant, 0, 4)]"
       ]
     }
   }
