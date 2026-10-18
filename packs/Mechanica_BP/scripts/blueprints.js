@@ -65,8 +65,66 @@ export const BUILDINGS = {
     ],
   },
 };
-export const WALL_RADIUS = 15;
-export const WALL_COST = { stone: 100 };
+export const ERAS = [
+  { key: "camp", ru: "Стоянка", cap: 8 },
+  { key: "village", ru: "Деревня", cap: 16 },
+  { key: "town", ru: "Город", cap: 28 },
+  { key: "industrial", ru: "Индустриальный город", cap: 40 },
+];
+Object.assign(BUILDINGS, {
+  smithy: {
+    size: 5, height: 5, era: 1, cost: { wood: 10, stone: 30, iron: 2 }, stoneCost: { stone: 40, iron: 2 }, nameKey: "mech.bld.smithy",
+    layers: [
+      ["CCCCC", "CCCCC", "CCCCC", "CCCCC", "CCCCC"],
+      ["EEDEE", "E...E", "EU.nE", "Eu..E", "EEEEE"],
+      ["EEdEE", "G...G", "E...E", "E..TE", "EEGEE"],
+      ["RRRRR", "RRRRR", "RRRRR", "RRRRR", "RRRRR"],
+      [".....", ".c...", ".....", ".....", "....."],
+    ],
+  },
+  market: {
+    size: 7, height: 4, era: 2, cost: { wood: 24, stone: 20 }, stoneCost: { stone: 44 }, nameKey: "mech.bld.market",
+    layers: [
+      ["ppppppp", "ppppppp", "ppppppp", "ppppppp", "ppppppp", "ppppppp", "ppppppp"],
+      ["fHf.fBf", ".......", "f.f.f.f", ".......", "f.f.f.f", ".......", "fBf.fHf"],
+      ["f...f.f", ".......", "f.l.f.f", ".......", "f.f.l.f", ".......", "f.f...f"],
+      ["yyy.yyy", "yyy.yyy", "yyy.yyy", ".......", "yyy.yyy", "yyy.yyy", "yyy.yyy"],
+    ],
+  },
+  barracks: {
+    size: 7, height: 5, era: 2, cost: { wood: 12, stone: 50, iron: 4 }, stoneCost: { stone: 60, iron: 4 }, nameKey: "mech.bld.barracks",
+    layers: [
+      ["CCCCCCC", "CFFFFFC", "CFFFFFC", "CFFFFFC", "CFFFFFC", "CFFFFFC", "CCCCCCC"],
+      ["EEEDEEE", "E.....E", "EH...HE", "E.....E", "EH...HE", "E..T..E", "EEEEEEE"],
+      ["EErdrEE", "r.....r", "E.....E", "r.....r", "E.....E", "r.....r", "EErErEE"],
+      ["EEEEEEE", "EEEEEEE", "EEEEEEE", "EEEEEEE", "EEEEEEE", "EEEEEEE", "EEEEEEE"],
+      ["c.c.c.c", ".......", "c.....c", ".......", "c.....c", ".......", "c.c.c.c"],
+    ],
+  },
+  library: {
+    size: 5, height: 5, era: 2, cost: { wood: 30, stone: 16 }, stoneCost: { stone: 40 }, nameKey: "mech.bld.library",
+    layers: [
+      ["CCCCC", "CFFFC", "CFFFC", "CFFFC", "CCCCC"],
+      ["WWDWW", "Wk.kW", "W...W", "Wk.kW", "WWWWW"],
+      ["WGdGW", "Wk.kW", "G.T.G", "Wk.kW", "WWGWW"],
+      ["RRRRR", "RRRRR", "RRRRR", "RRRRR", "RRRRR"],
+      [".....", ".SSS.", ".SSS.", ".SSS.", "....."],
+    ],
+  },
+  workshop: {
+    size: 7, height: 6, era: 3, cost: { wood: 20, stone: 40, iron: 6 }, stoneCost: { stone: 60, iron: 6 }, nameKey: "mech.bld.workshop",
+    layers: [
+      ["CCCCCCC", "CFFFFFC", "CFFFFFC", "CFFFFFC", "CFFFFFC", "CFFFFFC", "CCCCCCC"],
+      ["EEEDEEE", "E.....E", "EM.z.HE", "E.....E", "Ej...jE", "E..T..E", "EEEEEEE"],
+      ["EEGdGEE", "G.....G", "EX....E", "G.....G", "E.....E", "G.....G", "EEGEGEE"],
+      ["EEEEEEE", "E.....E", "Eq....E", "E.....E", "E.....E", "E.....E", "EEEEEEE"],
+      ["RRRRRRR", "RRRRRRR", "RRRRRRR", "RRRRRRR", "RRRRRRR", "RRRRRRR", "RRRRRRR"],
+      [".c...c.", ".......", ".......", ".......", ".......", ".......", ".c...c."],
+    ],
+  },
+});
+export const WALL_RADIUS = 31;
+export const WALL_COST = { stone: 180 };
 
 const NON_GROUND = new Set([
   "minecraft:air", "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava", "minecraft:tallgrass", "minecraft:short_grass",
@@ -82,14 +140,33 @@ export function isGroundBlock(b) {
   return true;
 }
 
-export function materialsFor(res, sandy, costWood, costStone) {
-  if (res.wood >= costWood.wood && res.stone >= costWood.stone) {
-    return { variant: "wood", wall: "minecraft:oak_planks", floor: "minecraft:oak_planks", roof: "minecraft:oak_planks", slab: ["minecraft:oak_slab", { "minecraft:vertical_half": "bottom" }], bricks: "minecraft:stone_bricks", cost: costWood };
-  }
-  if (res.stone >= costStone.stone) {
-    const w = sandy ? "minecraft:sandstone" : "minecraft:cobblestone";
-    return { variant: "stone", wall: w, floor: w, roof: w, slab: [sandy ? "minecraft:sandstone_slab" : "minecraft:cobblestone_slab", { "minecraft:vertical_half": "bottom" }], bricks: sandy ? "minecraft:cut_sandstone" : "minecraft:stone_bricks", cost: costStone };
-  }
+const ERA_MATS = [
+  { wall: "minecraft:oak_planks", floor: "minecraft:oak_planks", roof: "minecraft:oak_planks", slab: ["minecraft:oak_slab", { "minecraft:vertical_half": "bottom" }], bricks: "minecraft:cobblestone", light: ["minecraft:torch", { torch_facing_direction: "top" }], road: "minecraft:grass_path" },
+  { wall: "minecraft:oak_planks", floor: "minecraft:cobblestone", roof: "minecraft:spruce_planks", slab: ["minecraft:spruce_slab", { "minecraft:vertical_half": "bottom" }], bricks: "minecraft:stone_bricks", light: ["minecraft:torch", { torch_facing_direction: "top" }], road: "minecraft:grass_path" },
+  { wall: "minecraft:stone_bricks", floor: "minecraft:polished_andesite", roof: "minecraft:dark_oak_planks", slab: ["minecraft:dark_oak_slab", { "minecraft:vertical_half": "bottom" }], bricks: "minecraft:stone_bricks", light: ["minecraft:lantern", { hanging: false }], road: "minecraft:stone_bricks" },
+  { wall: "minecraft:brick_block", floor: "minecraft:polished_andesite", roof: "minecraft:copper_block", slab: ["minecraft:cut_copper_slab", { "minecraft:vertical_half": "bottom" }], bricks: "mech:brass_casing", light: ["minecraft:lantern", { hanging: false }], road: "minecraft:stone_bricks" },
+];
+const DESERT_MATS = [
+  { wall: "minecraft:sandstone", floor: "minecraft:sandstone", roof: "minecraft:sandstone", slab: ["minecraft:sandstone_slab", { "minecraft:vertical_half": "bottom" }], bricks: "minecraft:cut_sandstone" },
+  { wall: "minecraft:smooth_sandstone", floor: "minecraft:sandstone", roof: "minecraft:cut_sandstone", slab: ["minecraft:sandstone_slab", { "minecraft:vertical_half": "bottom" }], bricks: "minecraft:cut_sandstone" },
+  { wall: "minecraft:cut_sandstone", floor: "minecraft:smooth_sandstone", roof: "minecraft:terracotta", slab: ["minecraft:smooth_sandstone_slab", { "minecraft:vertical_half": "bottom" }], bricks: "minecraft:chiseled_sandstone" },
+  { wall: "minecraft:brick_block", floor: "minecraft:smooth_sandstone", roof: "minecraft:copper_block", slab: ["minecraft:cut_copper_slab", { "minecraft:vertical_half": "bottom" }], bricks: "mech:brass_casing" },
+];
+const STONE_MATS = { wall: "minecraft:cobblestone", floor: "minecraft:cobblestone", roof: "minecraft:cobblestone", slab: ["minecraft:cobblestone_slab", { "minecraft:vertical_half": "bottom" }], bricks: "minecraft:stone_bricks" };
+
+/** Materials for a building of the given era. variant: "wood" (normal) or "stone" (no wood available). */
+export function eraMaterials(era, sandy, variant) {
+  const e = Math.max(0, Math.min(ERA_MATS.length - 1, era));
+  const base = { ...ERA_MATS[e] };
+  if (variant === "stone") Object.assign(base, sandy ? DESERT_MATS[e] : (e >= 2 ? ERA_MATS[e] : STONE_MATS));
+  else if (sandy) Object.assign(base, DESERT_MATS[e]);
+  base.variant = variant;
+  return base;
+}
+export function materialsFor(res, sandy, costWood, costStone, era = 0) {
+  const enough = (cost) => Object.entries(cost).every(([r, c]) => (res[r] || 0) >= c);
+  if (enough(costWood)) return Object.assign(eraMaterials(era, sandy, "wood"), { cost: costWood });
+  if (enough(costStone)) return Object.assign(eraMaterials(era, sandy, "stone"), { cost: costStone });
   return null;
 }
 
@@ -101,7 +178,21 @@ function blockFor(ch, mats) {
     case "R": return [mats.roof];
     case "S": return mats.slab;
     case "G": return ["minecraft:glass"];
-    case "T": return ["minecraft:torch", { torch_facing_direction: "top" }];
+    case "T": return mats.light;
+    case "l": return ["minecraft:lantern", { hanging: false }];
+    case "U": return ["minecraft:furnace", { "minecraft:cardinal_direction": "north" }];
+    case "u": return ["minecraft:blast_furnace", { "minecraft:cardinal_direction": "north" }];
+    case "n": return ["minecraft:anvil", { "minecraft:cardinal_direction": "north" }];
+    case "c": return ["minecraft:cobblestone_wall"];
+    case "p": return [mats.road || "minecraft:grass_path"];
+    case "k": return ["minecraft:bookshelf"];
+    case "y": return ["minecraft:red_wool"];
+    case "r": return ["minecraft:iron_bars"];
+    case "M": return ["mech:millstone"];
+    case "X": return ["mech:shaft", { "minecraft:block_face": "up" }];
+    case "q": return ["mech:hand_crank", { "minecraft:block_face": "up" }];
+    case "z": return ["mech:depot"];
+    case "j": return ["mech:andesite_casing"];
     case "H": return ["minecraft:chest", { "minecraft:cardinal_direction": "north" }];
     case "K": return ["minecraft:crafting_table"];
     case "B": return ["minecraft:barrel", { facing_direction: 1 }];
@@ -176,6 +267,31 @@ export function wallSteps(center, groundAt) {
     steps.push({ x, y: g + 2, z, id: "minecraft:cobblestone" });
     if (idx % 7 === 0) steps.push({ x, y: g + 3, z, id: "minecraft:torch", states: { torch_facing_direction: "top" } });
     idx++;
+  }
+  return steps;
+}
+
+/** Road from the settlement center to a building: the top ground block along the line becomes `material`. */
+export function roadSteps(center, target, groundAt, material) {
+  const steps = [];
+  let x0 = center.x, z0 = center.z;
+  const x1 = target.x, z1 = target.z;
+  const dx = Math.abs(x1 - x0), dz = Math.abs(z1 - z0);
+  const sx = x0 < x1 ? 1 : -1, sz = z0 < z1 ? 1 : -1;
+  let err = dx - dz;
+  let guard = 0;
+  while ((x0 !== x1 || z0 !== z1) && guard++ < 200) {
+    const g = groundAt(x0, z0);
+    if (g !== null && g !== undefined) steps.push({ x: x0, y: g, z: z0, id: material, road: true });
+    const e2 = 2 * err;
+    if (e2 > -dz) {
+      err -= dz;
+      x0 += sx;
+    }
+    if (e2 < dx) {
+      err += dx;
+      z0 += sz;
+    }
   }
   return steps;
 }

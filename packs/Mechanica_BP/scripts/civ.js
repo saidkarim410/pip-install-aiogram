@@ -4,14 +4,16 @@ import {
   NS, DIR, add, key, parseKey, dist, distXZ, floorPos, randInt, pick, getBlock, st, setBlock, tr, tell, broadcast,
   getContainer, containerAdd, safeDimension, DIM_IDS, now,
 } from "./common.js";
-import { BUILDINGS, WALL_COST, WALL_RADIUS, buildSteps, wallSteps, materialsFor, isGroundBlock } from "./blueprints.js";
+import { BUILDINGS, ERAS, WALL_COST, WALL_RADIUS, buildSteps, wallSteps, roadSteps, materialsFor, eraMaterials, isGroundBlock } from "./blueprints.js";
 import { GEN } from "./generated.js";
 
 const PROP = `${NS}:civ`;
 const SLOTS = GEN.slots;
 const ROLES = ["builder", "gatherer", "farmer", "warrior"];
 const ROLE_RU = { builder: "Строитель", gatherer: "Добытчик", farmer: "Фермер", warrior: "Воин" };
-const BLD_RU = { town_hall: "Ратуша", house: "Дом", farm: "Ферма", tower: "Сторожевая башня", well: "Колодец", storage: "Склад", wall: "Стена" };
+const BLD_RU = { town_hall: "Ратуша", house: "Дом", farm: "Ферма", tower: "Сторожевая башня", well: "Колодец", storage: "Склад", wall: "Стена", smithy: "Кузница", market: "Рынок", barracks: "Казармы", library: "Библиотека", workshop: "Мастерская", road: "Дорога" };
+const ERA_REQ = [null, { pop: 6, buildings: ["town_hall", "farm", "house", "well"], houses: 2, dev: 20 }, { pop: 12, buildings: ["smithy", "tower"], houses: 4, dev: 60 }, { pop: 20, buildings: ["market", "barracks", "library"], houses: 6, dev: 130 }];
+const MAX_HOUSES = [3, 6, 10, 14];
 const RES_RU = { wood: "дерево", stone: "камень", food: "еда", iron: "железо" };
 const MAX_POP = 40;
 const JOIN_RADIUS = 48;
@@ -104,7 +106,7 @@ function foundSettlement(dim, pos) {
   const S = {
     id: civ.nextId++, slot, name: newName(), dim: dim.id, center: { x: p.x, y: cy, z: p.z }, sandy,
     res: { wood: 0, stone: 0, food: 0, iron: 0 }, buildings: [], build: null, mine: null, queue: [], scan: 0, gather: null,
-    temper: randInt(-3, 2), rel: {}, wars: {}, allies: {}, markers: {}, pop: 0, warriors: 0, emptySince: null, lastTrade: 0, lastDiplo: 0, lastBalance: 0, founded: now(), chest: null, warMarker: null,
+    temper: randInt(-3, 2), rel: {}, wars: {}, allies: {}, markers: {}, pop: 0, warriors: 0, emptySince: null, lastTrade: 0, lastDiplo: 0, lastBalance: 0, founded: now(), chest: null, warMarker: null, era: 0, dev: 0, lastCaravan: 0, lastDev: 0,
   };
   civ.settlements[S.id] = S;
   dirty = true;
@@ -162,6 +164,7 @@ function applyRole(e, S, role) {
     e.addTag(`mech_c${S.slot}`);
     e.addTag(`mech_role_${role}`);
     e.triggerEvent(`${NS}:become_${role}`);
+    e.triggerEvent(`${NS}:gear_${role}_${Math.min(3, S.era || 0)}`);
     e.triggerEvent(`${NS}:set_clan${S.slot}`);
     e.nameTag = `${ROLE_RU[role]} · ${S.name}`;
   } catch {}
@@ -304,33 +307,41 @@ function workers(members, loc, reach, startedTick) {
 // ---------------------------------------------------------------- building
 function buildOrder(S, pop) {
   const has = (t) => S.buildings.filter((b) => b.type === t).length;
-  if (!has("town_hall")) return "town_hall";
-  if (pop >= 3 && !has("farm")) return "farm";
+  const era = S.era || 0;
+  const want = [];
+  if (!has("town_hall")) return ["town_hall"];
+  if (pop >= 3 && !has("farm")) want.push("farm");
   const cap = 3 + 2 * has("house");
-  if (pop >= cap - 1 && has("house") < 12) return "house";
-  if (S.buildings.length >= 3 && !has("well")) return "well";
-  if (pop >= 8 && !has("tower")) return "tower";
-  if (pop >= 10 && !has("storage")) return "storage";
-  if (pop >= 12 && !has("wall")) return "wall";
-  if (pop >= 8 && has("farm") < Math.floor(pop / 8)) return "farm";
-  if (pop >= 16 && has("tower") < 2) return "tower";
-  return null;
+  if (pop >= cap - 1 && has("house") < MAX_HOUSES[Math.min(3, era)]) want.push("house");
+  if (S.buildings.length >= 3 && !has("well")) want.push("well");
+  if (era >= 1 && pop >= 6 && !has("smithy")) want.push("smithy");
+  if (era >= 1 && pop >= 8 && !has("tower")) want.push("tower");
+  if (era >= 1 && pop >= 10 && !has("storage")) want.push("storage");
+  if (era >= 1 && pop >= 12 && !has("wall")) want.push("wall");
+  if (era >= 2 && pop >= 12 && !has("market")) want.push("market");
+  if (era >= 2 && pop >= 14 && !has("barracks")) want.push("barracks");
+  if (era >= 2 && pop >= 16 && !has("library")) want.push("library");
+  if (era >= 3 && pop >= 20 && !has("workshop")) want.push("workshop");
+  if (pop >= 8 && has("farm") < Math.floor(pop / 8)) want.push("farm");
+  if (era >= 2 && pop >= 18 && has("tower") < 2) want.push("tower");
+  return want;
 }
 function overlaps(S, origin, size) {
   const m = Math.floor(size / 2);
   for (const b of [...S.buildings, S.build].filter(Boolean)) {
     if (b.type === "wall") continue;
     const bs = b.size || BUILDINGS[b.type]?.size || 5;
-    if (Math.abs(origin.x + m - (b.x + Math.floor(bs / 2))) < (size + bs) / 2 + 2 && Math.abs(origin.z + m - (b.z + Math.floor(bs / 2))) < (size + bs) / 2 + 2) return true;
+    if (Math.abs(origin.x + m - (b.x + Math.floor(bs / 2))) < (size + bs) / 2 + 1.5 && Math.abs(origin.z + m - (b.z + Math.floor(bs / 2))) < (size + bs) / 2 + 1.5) return true;
   }
   if (S.mine && Math.abs(origin.x + m - S.mine.x) < size / 2 + 4 && Math.abs(origin.z + m - S.mine.z) < size / 2 + 4) return true;
   return false;
 }
 function findSite(S, dim, size) {
   const c = S.center;
-  for (const r of [6, 10, 13]) {
-    for (let a = 0; a < 12; a++) {
-      const ang = (a * Math.PI) / 6 + (r % 2 ? 0.26 : 0);
+  for (const r of [6, 10, 14, 18, 22, 26]) {
+    const n = r < 12 ? 12 : r < 20 ? 16 : 22;
+    for (let a = 0; a < n; a++) {
+      const ang = (a * 2 * Math.PI) / n + (r % 4 ? 0.2 : 0);
       const cx = c.x + Math.round(Math.cos(ang) * r), cz = c.z + Math.round(Math.sin(ang) * r);
       const origin = { x: cx - Math.floor(size / 2), z: cz - Math.floor(size / 2) };
       if (overlaps(S, origin, size)) continue;
@@ -351,39 +362,65 @@ function findSite(S, dim, size) {
   }
   return null;
 }
+function halve(cost) {
+  const o = {};
+  for (const k in cost) o[k] = Math.ceil(cost[k] / 2);
+  return o;
+}
 function startBuild(S, dim, pop) {
-  const type = buildOrder(S, pop);
-  if (!type) return;
-  if (type === "wall") {
-    if (S.res.stone < WALL_COST.stone) return;
-    S.res.stone -= WALL_COST.stone;
-    S.build = { type, x: S.center.x, y: S.center.y, z: S.center.z, step: 0, started: now(), variant: "stone", size: WALL_RADIUS * 2 };
+  const era = S.era || 0;
+  // roads to every building (from the Village era on)
+  if (era >= 1) {
+    const t = S.buildings.find((b) => !b.road && b.type !== "wall" && b.type !== "town_hall");
+    if (t) {
+      const half = Math.floor((t.size || 5) / 2);
+      S.build = { type: "road", x: t.x + half, y: t.y, z: t.z + half, step: 0, started: now(), variant: "wood", size: 1, era, tx: t.x, tz: t.z };
+      dirty = true;
+      return;
+    }
+  }
+  // renovate old buildings to the current era's materials
+  const up = S.buildings.find((b) => (b.era || 0) < era && !["wall", "farm", "well", "market"].includes(b.type));
+  if (up) {
+    const bp = BUILDINGS[up.type];
+    const mats = materialsFor(S.res, S.sandy, halve(bp.cost), halve(bp.stoneCost), era);
+    if (mats) {
+      for (const r in mats.cost) S.res[r] -= mats.cost[r];
+      S.build = { type: up.type, x: up.x, y: up.y, z: up.z, step: 0, started: now(), variant: mats.variant, size: bp.size, era, upgrade: true };
+      dirty = true;
+      return;
+    }
+  }
+  for (const type of buildOrder(S, pop)) {
+    if (type === "wall") {
+      if (S.res.stone < WALL_COST.stone) continue;
+      S.res.stone -= WALL_COST.stone;
+      S.build = { type, x: S.center.x, y: S.center.y, z: S.center.z, step: 0, started: now(), variant: "stone", size: WALL_RADIUS * 2, era };
+      dirty = true;
+      return;
+    }
+    const bp = BUILDINGS[type];
+    const mats = materialsFor(S.res, S.sandy, bp.cost, bp.stoneCost, era);
+    if (!mats) continue;
+    let origin;
+    if (type === "town_hall") origin = { x: S.center.x - 3, y: S.center.y, z: S.center.z - 3 };
+    else origin = findSite(S, dim, bp.size);
+    if (!origin) continue;
+    for (const r in mats.cost) S.res[r] -= mats.cost[r];
+    S.build = { type, x: origin.x, y: origin.y, z: origin.z, step: 0, started: now(), variant: mats.variant, size: bp.size, era };
     dirty = true;
     return;
   }
-  const bp = BUILDINGS[type];
-  const mats = materialsFor(S.res, S.sandy, bp.cost, bp.stoneCost);
-  if (!mats) return;
-  let origin;
-  if (type === "town_hall") origin = { x: S.center.x - 3, y: S.center.y, z: S.center.z - 3 };
-  else origin = findSite(S, dim, bp.size);
-  if (!origin) return;
-  for (const r in mats.cost) S.res[r] -= mats.cost[r];
-  S.build = { type, x: origin.x, y: origin.y, z: origin.z, step: 0, started: now(), variant: mats.variant, size: bp.size };
-  dirty = true;
 }
 function stepsFor(S, dim) {
   const b = S.build;
-  const sig = `${b.type}:${b.x},${b.y},${b.z}:${b.variant}`;
+  const sig = `${b.type}:${b.x},${b.y},${b.z}:${b.variant}:${b.era || 0}`;
   const c = stepCache.get(S.id);
   if (c && c.sig === sig) return c.steps;
   let steps;
   if (b.type === "wall") steps = wallSteps(S.center, (x, z) => groundAt(dim, x, z, S.center.y));
-  else {
-    const bp = BUILDINGS[b.type];
-    const mats = b.variant === "wood" ? materialsFor({ wood: 1e9, stone: 1e9 }, S.sandy, bp.cost, bp.stoneCost) : materialsFor({ wood: 0, stone: 1e9 }, S.sandy, bp.cost, bp.stoneCost);
-    steps = buildSteps(b.type, { x: b.x, y: b.y, z: b.z }, mats);
-  }
+  else if (b.type === "road") steps = roadSteps(S.center, { x: b.x, z: b.z }, (x, z) => groundAt(dim, x, z, S.center.y), eraMaterials(b.era || 0, S.sandy, "wood").road);
+  else steps = buildSteps(b.type, { x: b.x, y: b.y, z: b.z }, eraMaterials(b.era || 0, S.sandy, b.variant || "wood"));
   stepCache.set(S.id, { sig, steps });
   return steps;
 }
@@ -391,7 +428,12 @@ function stepsFor(S, dim) {
 function applyStep(dim, S, step) {
   const b = getBlock(dim, step);
   if (!b) return false;
-  if (step.foundation) {
+  if (step.road) {
+    if (b.typeId === step.id || !isGroundBlock(b)) return false;
+    if (step.id === "minecraft:grass_path" && b.typeId !== "minecraft:grass_block" && b.typeId !== "minecraft:dirt") return false;
+    const above = getBlock(dim, add(step, DIR.up));
+    if (!above || !above.isAir) return false;
+  } else if (step.foundation) {
     if (isGroundBlock(b)) return false;
   } else if (step.clear) {
     if (b.isAir) return false;
@@ -412,7 +454,7 @@ function builderJob(S, dim, members, marker, pop) {
   moveMarker(marker, site);
   if (!members.length) return;
   const steps = stepsFor(S, dim);
-  const active = workers(members, site, b.type === "wall" ? 40 : 9, b.started);
+  const active = workers(members, site, b.type === "wall" || b.type === "road" ? 40 : 9, b.started);
   if (!active.length) return;
   let budget = Math.min(6, active.length * 2);
   let guard = 0;
@@ -429,16 +471,27 @@ function builderJob(S, dim, members, marker, pop) {
       }
     }
   }
-  if (b.type === "wall" && b.step < steps.length) {
+  if ((b.type === "wall" || b.type === "road") && b.step < steps.length) {
     const s = steps[Math.min(b.step, steps.length - 1)];
     moveMarker(marker, { x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 });
   }
   dirty = true;
   if (b.step >= steps.length) {
-    S.buildings.push({ type: b.type, x: b.x, y: b.y, z: b.z, size: b.size });
+    if (b.type === "road") {
+      const t = S.buildings.find((x) => x.x === b.tx && x.z === b.tz);
+      if (t) t.road = true;
+    } else if (b.upgrade) {
+      const t = S.buildings.find((x) => x.x === b.x && x.z === b.z && x.type === b.type);
+      if (t) t.era = b.era;
+      S.dev = (S.dev || 0) + 2;
+      broadcast(tr("mech.civ.upgraded", S.name, BLD_RU[b.type] || b.type));
+    } else {
+      S.buildings.push({ type: b.type, x: b.x, y: b.y, z: b.z, size: b.size, era: b.era || 0 });
+      S.dev = (S.dev || 0) + 5;
+      broadcast(tr("mech.civ.built", S.name, BLD_RU[b.type] || b.type));
+    }
     S.build = null;
     stepCache.delete(S.id);
-    broadcast(tr("mech.civ.built", S.name, BLD_RU[b.type] || b.type));
   }
 }
 
@@ -449,8 +502,8 @@ const SCAN_PER_TICK = 160;
 function isLog(t) {
   return t.endsWith("_log") || t.endsWith("_stem") || t === "minecraft:bamboo_block";
 }
-function resourceOf(t) {
-  if (isLog(t)) return ["wood", 1, "minecraft:oak_log"];
+function resourceOf(t, era = 0) {
+  if (isLog(t)) return ["wood", 1 + Math.floor(era / 2), "minecraft:oak_log"];
   if (t.includes("iron_ore")) return ["iron", 1, "minecraft:raw_iron"];
   if (t.includes("gold_ore") || t.includes("diamond_ore") || t.includes("emerald_ore")) return ["iron", 2, "minecraft:raw_gold"];
   if (t.includes("copper_ore") || t.includes("zinc_ore") || t.includes("coal_ore")) return ["iron", 1, "minecraft:coal"];
@@ -496,7 +549,7 @@ function gatherJob(S, dim, members, marker) {
   if (S.gather) {
     const p = parseKey(S.gather.k);
     const b = getBlock(dim, p);
-    const r = b ? resourceOf(b.typeId) : null;
+    const r = b ? resourceOf(b.typeId, S.era || 0) : null;
     if (!r) {
       S.gather = null;
     } else {
@@ -553,7 +606,7 @@ function gatherJob(S, dim, members, marker) {
         M.depth = 11;
         continue;
       }
-      const r = resourceOf(b.typeId);
+      const r = resourceOf(b.typeId, S.era || 0);
       try {
         b.setType("minecraft:air");
       } catch {}
@@ -562,9 +615,9 @@ function gatherJob(S, dim, members, marker) {
         deposit(S, dim, r[2]);
       }
       sound(dim, p, "dig.stone");
-    } else if (Math.random() < 0.35) {
+    } else if (Math.random() < 0.35 + 0.15 * (S.era || 0)) {
       S.res.stone += 1;
-      if (Math.random() < 0.12) S.res.iron += 1;
+      if (Math.random() < 0.12 + 0.05 * (S.era || 0)) S.res.iron += 1;
       if (Math.random() < 0.4) particle(dim, site, "minecraft:basic_crit_particle");
       deposit(S, dim, "minecraft:cobblestone");
     }
@@ -664,7 +717,9 @@ function diplomacy() {
         const duration = tick - war.start;
         const aW = A.warriors || 0, bW = B.warriors || 0;
         if (duration > 4800 || (aW === 0 && bW > 0) || (bW === 0 && aW > 0) || A.pop === 0 || B.pop === 0) {
-          const winner = aW !== bW ? (aW > bW ? A : B) : A.pop >= B.pop ? A : B;
+          const aS = aW * (1 + 0.5 * (A.era || 0)), bS = bW * (1 + 0.5 * (B.era || 0));
+          const winner = aS !== bS ? (aS > bS ? A : B) : A.pop >= B.pop ? A : B;
+          winner.dev = (winner.dev || 0) + 3;
           const loser = winner === A ? B : A;
           const taken = [];
           for (const r in loser.res) {
@@ -713,6 +768,8 @@ function diplomacy() {
         }
         if (traded.length) {
           A.lastTrade = B.lastTrade = tick;
+          A.dev = (A.dev || 0) + 2;
+          B.dev = (B.dev || 0) + 2;
           A.rel[B.id] = B.rel[A.id] = Math.min(100, rel + 5);
           broadcast(tr("mech.civ.trade", A.name, B.name, traded.join(", ")));
         }
@@ -725,7 +782,38 @@ function diplomacy() {
 
 // ---------------------------------------------------------------- growth
 function capacity(S) {
-  return 3 + 2 * S.buildings.filter((b) => b.type === "house").length;
+  return Math.min(ERAS[Math.min(3, S.era || 0)].cap, 3 + 2 * S.buildings.filter((b) => b.type === "house").length);
+}
+
+// ---------------------------------------------------------------- eras (civilization progress)
+function eraProgress(S, members) {
+  const era = S.era || 0;
+  // development points: a prosperous settlement develops over time
+  if (now() - (S.lastDev || 0) >= 1200) {
+    S.lastDev = now();
+    if (S.res.food >= 20) S.dev = (S.dev || 0) + 1;
+    if (S.buildings.some((b) => b.type === "library")) S.dev = (S.dev || 0) + 2;
+    dirty = true;
+  }
+  // market caravans bring goods
+  if (S.buildings.some((b) => b.type === "market") && now() - (S.lastCaravan || 0) >= 2400) {
+    S.lastCaravan = now();
+    const r = pick(["wood", "stone", "food", "iron"]);
+    const amt = r === "iron" ? 3 : 8;
+    S.res[r] += amt;
+    S.dev = (S.dev || 0) + 1;
+    broadcast(tr("mech.civ.caravan", S.name, `${RES_RU[r]} ×${amt}`));
+    dirty = true;
+  }
+  if (era >= ERAS.length - 1) return;
+  const req = ERA_REQ[era + 1];
+  const has = (t) => S.buildings.filter((b) => b.type === t).length;
+  if (members.length < req.pop || (S.dev || 0) < req.dev || has("house") < req.houses) return;
+  if (!req.buildings.every((t) => has(t) > 0)) return;
+  S.era = era + 1;
+  dirty = true;
+  broadcast(tr("mech.civ.era", S.name, ERAS[S.era].ru));
+  for (const m of members) applyRole(m.e, S, m.role);
 }
 function growth(S, dim, members) {
   if (S.res.food < 10 || members.length >= capacity(S) || members.length >= MAX_POP) return;
@@ -814,6 +902,7 @@ export function civTick() {
       farmJob(S, dim, by("farmer"), markers.farmer);
       warriorJob(S, dim, by("warrior"), markers.warrior);
       if (tickNo % 5 === 0) growth(S, dim, members);
+      if (tickNo % 15 === 7) eraProgress(S, members);
     } catch (e) {
       console.warn(`[mech] settlement ${S.name} tick failed: ${e}`);
     }
@@ -833,6 +922,8 @@ export function describeColonist(player, entity) {
   if (!S) return;
   const role = prop(entity, `${NS}:role`) || "gatherer";
   tell(player, tr("mech.civ.info", S.name, S.pop, S.res.wood, S.res.stone, S.res.food, S.res.iron, S.buildings.length));
+  const nextReq = ERA_REQ[(S.era || 0) + 1];
+  tell(player, tr("mech.civ.info_era", ERAS[Math.min(3, S.era || 0)].ru, S.dev || 0, nextReq ? `${nextReq.dev} (население ${nextReq.pop}+, ${nextReq.buildings.map((t) => BLD_RU[t]).join(", ")})` : "—"));
   const rels = settlements().filter((O) => O.id !== S.id && O.dim === S.dim).map((O) => `${O.name}: ${relationLabel(S.rel[O.id] ?? 0, !!S.wars[O.id], !!S.allies[O.id])}`);
   tell(player, tr("mech.civ.info_role", ROLE_RU[role], rels.length ? rels.join(", ") : "-"));
 }

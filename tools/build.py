@@ -587,9 +587,7 @@ def gen_entities():
     ]}, "max_dist": 20})
     groups = {
         f"{NS}:warrior": {
-            "minecraft:health": {"value": 34, "max": 34},
             "minecraft:attack": {"damage": 5},
-            "minecraft:equipment": {"table": "loot_tables/entities/mech_warrior_gear.json"},
             "minecraft:behavior.melee_box_attack": {"priority": 2, "speed_multiplier": 1.25, "track_target": True, "reach_multiplier": 1.4},
             "minecraft:behavior.hurt_by_target": {"priority": 1},
             "minecraft:mark_variant": {"value": 3},
@@ -597,16 +595,37 @@ def gen_entities():
         f"{NS}:worker": {
             "minecraft:behavior.panic": {"priority": 1, "speed_multiplier": 1.3},
         },
-        f"{NS}:gatherer": {"minecraft:mark_variant": {"value": 1}, "minecraft:equipment": {"table": "loot_tables/entities/mech_gatherer_gear.json"}},
+        f"{NS}:gatherer": {"minecraft:mark_variant": {"value": 1}},
         f"{NS}:builder": {"minecraft:mark_variant": {"value": 0}},
-        f"{NS}:farmer": {"minecraft:mark_variant": {"value": 2}, "minecraft:equipment": {"table": "loot_tables/entities/mech_farmer_gear.json"}},
+        f"{NS}:farmer": {"minecraft:mark_variant": {"value": 2}},
     }
+    # equipment and health per role and era (civilizations evolve)
+    GEAR = {
+        "builder": [["minecraft:wooden_axe"], ["minecraft:stone_axe"], ["minecraft:iron_axe"], ["minecraft:diamond_axe"]],
+        "gatherer": [["minecraft:wooden_pickaxe"], ["minecraft:stone_pickaxe"], ["minecraft:iron_pickaxe"], ["minecraft:diamond_pickaxe"]],
+        "farmer": [["minecraft:wooden_hoe"], ["minecraft:stone_hoe"], ["minecraft:iron_hoe"], ["minecraft:diamond_hoe"]],
+        "warrior": [["minecraft:stone_sword", "minecraft:leather_helmet"], ["minecraft:iron_sword", "minecraft:iron_helmet"], ["minecraft:iron_sword", "minecraft:iron_helmet", "minecraft:iron_chestplate"],
+                    ["minecraft:diamond_sword", "minecraft:iron_helmet", "minecraft:iron_chestplate", "minecraft:iron_leggings"]],
+    }
+    WARRIOR_HP = [24, 30, 36, 44]
+    gear_groups = []
+    for role, eras in GEAR.items():
+        for era, items in enumerate(eras):
+            gname = f"{NS}:gear_{role}_{era}"
+            gear_groups.append(gname)
+            table = f"loot_tables/entities/mech_gear_{role}_{era}.json"
+            write_json(os.path.join(BP, table), {"pools": [{"rolls": 1, "entries": [{"type": "item", "name": it, "weight": 1}]} for it in items]})
+            groups[gname] = {"minecraft:equipment": {"table": table}}
+            if role == "warrior":
+                groups[gname]["minecraft:health"] = {"value": WARRIOR_HP[era], "max": WARRIOR_HP[era]}
     events = {
         f"{NS}:become_warrior": {"remove": {"component_groups": [f"{NS}:worker", f"{NS}:gatherer", f"{NS}:builder", f"{NS}:farmer"]}, "add": {"component_groups": [f"{NS}:warrior"]}},
         f"{NS}:become_builder": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:gatherer", f"{NS}:farmer"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:builder"]}},
         f"{NS}:become_gatherer": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:builder", f"{NS}:farmer"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:gatherer"]}},
         f"{NS}:become_farmer": {"remove": {"component_groups": [f"{NS}:warrior", f"{NS}:builder", f"{NS}:gatherer"]}, "add": {"component_groups": [f"{NS}:worker", f"{NS}:farmer"]}},
     }
+    for g in gear_groups:
+        events[g] = {"remove": {"component_groups": [o for o in gear_groups if o != g]}, "add": {"component_groups": [g]}}
     for i in range(SLOTS):
         groups[f"{NS}:clan{i}"] = {"minecraft:variant": {"value": i}}
         events[f"{NS}:set_clan{i}"] = {"remove": {"component_groups": [f"{NS}:clan{j}" for j in range(SLOTS) if j != i]}, "add": {"component_groups": [f"{NS}:clan{i}"]}}
@@ -643,9 +662,6 @@ def gen_entities():
         },
     })
     write_json(os.path.join(BP, "loot_tables", "entities", "mech_colonist.json"), {"pools": [{"rolls": 1, "entries": [{"type": "item", "name": "minecraft:bread", "weight": 1}, {"type": "item", "name": "minecraft:emerald", "weight": 1}, {"type": "empty", "weight": 2}]}]})
-    write_json(os.path.join(BP, "loot_tables", "entities", "mech_warrior_gear.json"), {"pools": [{"rolls": 1, "entries": [{"type": "item", "name": "minecraft:iron_sword", "weight": 1}]}, {"rolls": 1, "entries": [{"type": "item", "name": "minecraft:iron_helmet", "weight": 1}]}]})
-    write_json(os.path.join(BP, "loot_tables", "entities", "mech_gatherer_gear.json"), {"pools": [{"rolls": 1, "entries": [{"type": "item", "name": "minecraft:iron_pickaxe", "weight": 1}, {"type": "item", "name": "minecraft:iron_axe", "weight": 1}]}]})
-    write_json(os.path.join(BP, "loot_tables", "entities", "mech_farmer_gear.json"), {"pools": [{"rolls": 1, "entries": [{"type": "item", "name": "minecraft:iron_hoe", "weight": 1}]}]})
     # ---- client side
     skins = {}
     arr = []
@@ -745,6 +761,15 @@ MESSAGES = {
     "mech.bld.well": ("Well", "Колодец"),
     "mech.bld.storage": ("Storehouse", "Склад"),
     "mech.bld.wall": ("Wall", "Стена"),
+    "mech.bld.smithy": ("Smithy", "Кузница"),
+    "mech.bld.market": ("Market", "Рынок"),
+    "mech.bld.barracks": ("Barracks", "Казармы"),
+    "mech.bld.library": ("Library", "Библиотека"),
+    "mech.bld.workshop": ("Workshop", "Мастерская"),
+    "mech.civ.era": ("§6[%s] §d§lenters a new era: §f%s", "§6[%s] §d§lвступает в новую эпоху: §f%s"),
+    "mech.civ.upgraded": ("§6[%s] §arebuilt in the new style: %s", "§6[%s] §aперестроено по-новому: %s"),
+    "mech.civ.caravan": ("§3[Trade] §ba caravan arrived at %s: %s", "§3[Торговля] §bв %s прибыл караван: %s"),
+    "mech.civ.info_era": ("§dEra: §f%s §7| development %s §7| next era at %s", "§dЭпоха: §f%s §7| развитие %s §7| следующая эпоха при %s"),
     "mech.rel.war": ("war", "война"),
     "mech.rel.ally": ("alliance", "союз"),
     "mech.rel.neutral": ("neutral", "нейтралитет"),

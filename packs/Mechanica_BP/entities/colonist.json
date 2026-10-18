@@ -8,15 +8,8 @@
     },
     "component_groups": {
       "mech:warrior": {
-        "minecraft:health": {
-          "value": 34,
-          "max": 34
-        },
         "minecraft:attack": {
           "damage": 5
-        },
-        "minecraft:equipment": {
-          "table": "loot_tables/entities/mech_warrior_gear.json"
         },
         "minecraft:behavior.melee_box_attack": {
           "priority": 2,
@@ -40,9 +33,6 @@
       "mech:gatherer": {
         "minecraft:mark_variant": {
           "value": 1
-        },
-        "minecraft:equipment": {
-          "table": "loot_tables/entities/mech_gatherer_gear.json"
         }
       },
       "mech:builder": {
@@ -53,9 +43,102 @@
       "mech:farmer": {
         "minecraft:mark_variant": {
           "value": 2
-        },
+        }
+      },
+      "mech:gear_builder_0": {
         "minecraft:equipment": {
-          "table": "loot_tables/entities/mech_farmer_gear.json"
+          "table": "loot_tables/entities/mech_gear_builder_0.json"
+        }
+      },
+      "mech:gear_builder_1": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_builder_1.json"
+        }
+      },
+      "mech:gear_builder_2": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_builder_2.json"
+        }
+      },
+      "mech:gear_builder_3": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_builder_3.json"
+        }
+      },
+      "mech:gear_gatherer_0": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_gatherer_0.json"
+        }
+      },
+      "mech:gear_gatherer_1": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_gatherer_1.json"
+        }
+      },
+      "mech:gear_gatherer_2": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_gatherer_2.json"
+        }
+      },
+      "mech:gear_gatherer_3": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_gatherer_3.json"
+        }
+      },
+      "mech:gear_farmer_0": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_farmer_0.json"
+        }
+      },
+      "mech:gear_farmer_1": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_farmer_1.json"
+        }
+      },
+      "mech:gear_farmer_2": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_farmer_2.json"
+        }
+      },
+      "mech:gear_farmer_3": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_farmer_3.json"
+        }
+      },
+      "mech:gear_warrior_0": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_warrior_0.json"
+        },
+        "minecraft:health": {
+          "value": 24,
+          "max": 24
+        }
+      },
+      "mech:gear_warrior_1": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_warrior_1.json"
+        },
+        "minecraft:health": {
+          "value": 30,
+          "max": 30
+        }
+      },
+      "mech:gear_warrior_2": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_warrior_2.json"
+        },
+        "minecraft:health": {
+          "value": 36,
+          "max": 36
+        }
+      },
+      "mech:gear_warrior_3": {
+        "minecraft:equipment": {
+          "table": "loot_tables/entities/mech_gear_warrior_3.json"
+        },
+        "minecraft:health": {
+          "value": 44,
+          "max": 44
         }
       },
       "mech:clan0": {
@@ -1175,6 +1258,422 @@
           "component_groups": [
             "mech:worker",
             "mech:farmer"
+          ]
+        }
+      },
+      "mech:gear_builder_0": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_builder_0"
+          ]
+        }
+      },
+      "mech:gear_builder_1": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_builder_1"
+          ]
+        }
+      },
+      "mech:gear_builder_2": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_builder_2"
+          ]
+        }
+      },
+      "mech:gear_builder_3": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_builder_3"
+          ]
+        }
+      },
+      "mech:gear_gatherer_0": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_gatherer_0"
+          ]
+        }
+      },
+      "mech:gear_gatherer_1": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_gatherer_1"
+          ]
+        }
+      },
+      "mech:gear_gatherer_2": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_gatherer_2"
+          ]
+        }
+      },
+      "mech:gear_gatherer_3": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_gatherer_3"
+          ]
+        }
+      },
+      "mech:gear_farmer_0": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_farmer_0"
+          ]
+        }
+      },
+      "mech:gear_farmer_1": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_farmer_1"
+          ]
+        }
+      },
+      "mech:gear_farmer_2": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_farmer_2"
+          ]
+        }
+      },
+      "mech:gear_farmer_3": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_farmer_3"
+          ]
+        }
+      },
+      "mech:gear_warrior_0": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_warrior_0"
+          ]
+        }
+      },
+      "mech:gear_warrior_1": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_2",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_warrior_1"
+          ]
+        }
+      },
+      "mech:gear_warrior_2": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_3"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_warrior_2"
+          ]
+        }
+      },
+      "mech:gear_warrior_3": {
+        "remove": {
+          "component_groups": [
+            "mech:gear_builder_0",
+            "mech:gear_builder_1",
+            "mech:gear_builder_2",
+            "mech:gear_builder_3",
+            "mech:gear_gatherer_0",
+            "mech:gear_gatherer_1",
+            "mech:gear_gatherer_2",
+            "mech:gear_gatherer_3",
+            "mech:gear_farmer_0",
+            "mech:gear_farmer_1",
+            "mech:gear_farmer_2",
+            "mech:gear_farmer_3",
+            "mech:gear_warrior_0",
+            "mech:gear_warrior_1",
+            "mech:gear_warrior_2"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "mech:gear_warrior_3"
           ]
         }
       },
